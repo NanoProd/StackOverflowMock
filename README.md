@@ -10,6 +10,7 @@
 - Tim Freiman
 - Philippe Carvajal
 - Aleksandr Vinokhodov
+- Joshua-James Nantel-Ouimet
 
 
 
