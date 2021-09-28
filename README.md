@@ -1,4 +1,4 @@
-#stackoverflow mock
+# stackoverflow mock
 
 # Tech Stack
 - Javascript
@@ -8,6 +8,7 @@
 
 # Members
 - Tim Freiman
+- Philippe Carvajal
 
 
 
