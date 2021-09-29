@@ -12,7 +12,7 @@
 - Aleksandr Vinokhodov
 - Joshua-James Nantel-Ouimet
 - Samaninder Singh
-- Lorne Geniele
+- Lorne Geniele, GH: hotplate5
 
 
 
