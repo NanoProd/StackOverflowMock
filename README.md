@@ -23,6 +23,13 @@
 7. pgadmin is located on `localhost:5050` with credentials:
  - login: dev@concordia.ca
  - pass: root
+ - to find ip of the db container `docker ps` find the name of the db container, it will be like `project_db_1` then `docker instpect project_db_1 | grep "IPAddress" you will see something 
+ ```
+    "SecondaryIPAddresses": null,
+    "IPAddress": "",
+        "IPAddress": "172.21.0.2",
+```
+ - use `172.21.0.2` you found in the output for connecting to the db container in your pgadmin dashboard.
 8. all the changes will be loaded into the container because we have mounted volumes.
 9. happy codding
 
