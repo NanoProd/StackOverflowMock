@@ -7,7 +7,7 @@ services:
                 volumes:
                         - ./services/web:/usr/src/app
                 ports:
-                        - 5000:5000
+                        - "5000:5000"
                 env_file:
                         - ./.env.dev
         db:
@@ -18,6 +18,14 @@ services:
                         - POSTGRES_USER=flask
                         - POSTGRES_PASSWORD=flask
                         - POSTGRES_DB=dev
+        pgadmin:
+                image: dpage/pgadmin4
+                restart: unless-stopped
+                environment:
+                        PGADMIN_DEFAULT_EMAIL: dev@concordia.ca
+                        PGADMIN_DEFAULT_PASSWORD: root
+                ports:
+                        - "5050:80"
 
 volumes:
         postgres_data:
