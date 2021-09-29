@@ -11,6 +11,7 @@
 - Philippe Carvajal
 - Aleksandr Vinokhodov
 - Joshua-James Nantel-Ouimet
+- Samaninder Singh
 
 
 
