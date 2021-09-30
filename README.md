@@ -11,7 +11,7 @@
 - Philippe Carvajal, GH: PhilCarPi
 - Aleksandr Vinokhodov, GH:daxsis
 - Joshua-James Nantel-Ouimet
-- Samaninder Singh
+- Samaninder Singh, GH:SamSDK
 - Lorne Geniele, GH: hotplate5
 
 
