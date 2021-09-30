@@ -7,7 +7,7 @@
 - HTML/CSS
 
 # Members
-- Tim Freiman
+- Tim Freiman, GH: VimFreeman
 - Philippe Carvajal, GH: PhilCarPi
 - Aleksandr Vinokhodov, GH:daxsis
 - Joshua-James Nantel-Ouimet
