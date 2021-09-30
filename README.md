@@ -8,7 +8,7 @@
 
 # Members
 - Tim Freiman
-- Philippe Carvajal
+- Philippe Carvajal, GH: PhilCarPi
 - Aleksandr Vinokhodov
 - Joshua-James Nantel-Ouimet
 - Samaninder Singh
