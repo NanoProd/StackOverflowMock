@@ -9,7 +9,7 @@
 # Members
 - Tim Freiman
 - Philippe Carvajal, GH: PhilCarPi
-- Aleksandr Vinokhodov
+- Aleksandr Vinokhodov, GH:daxsis
 - Joshua-James Nantel-Ouimet
 - Samaninder Singh
 - Lorne Geniele, GH: hotplate5
