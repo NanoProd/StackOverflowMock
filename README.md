@@ -11,6 +11,8 @@
 - Philippe Carvajal
 - Aleksandr Vinokhodov
 - Joshua-James Nantel-Ouimet
+- Samaninder Singh
+- Lorne Geniele
 
 # Project Setup
 1. `git clone` repository
@@ -34,6 +36,7 @@
  - use `172.21.0.2` you found in the output for connecting to the db container in your pgadmin dashboard.
 9. all the changes will be loaded into the container because we have mounted volumes.
 10. happy codding
+
 
 
 
