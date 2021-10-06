@@ -13,16 +13,35 @@ If the commit warrants more details than a short descriptive title, a body shoul
 <br><br>
 For example:
 <br>
-![image](https://user-images.githubusercontent.com/19224656/136252194-08672a72-ada7-47f8-a636-fa91c27b5ced.png)
-<br><br>
+<p>
+<img src="https://user-images.githubusercontent.com/19224656/136252194-08672a72-ada7-47f8-a636-fa91c27b5ced.png" width="60%">
+</p>
 This is a screen capture of a commit being created in vim. Notice that the tilte is sepatrated from the body by an empty line.
 <br><br>
-*Big brain move:*<br>
-The `alt` code for a bullet character is: `0149`
+
+*Big brain move:*
+
+<br>
+The "alt" code for a bullet character is: 0149
+
 ### Work not related to issues
 Commits should ALWAYS be associated with an issue!
 
 ## Pull Requests
+Names of PRs should observe the following conventions.
+### PR Titles related to Issues in a Sprint
+The formatting should be as follows:<br>
+`[#<issue-number>] Resolves: <task-id>`
+<br><br>
+If a PR is linked with more than one issue, the format of the merge commit should be:<br>
+`[#<issue-1-number>, #<issue-2-number>, ..., #<issue-N-number>] Resolves: <task-1-id>, <task-2-id>, ..., and <task-N-id>`
+### PR Titles Related to Issue NOT is a Sprint
+If a PR is linked with issues NOT related to tasks in a Sprint, the following convention should be observed:<br>
+`[#<issue-1-number>, #<issue-2-number>, ..., #<issue-N-number>] Resolves: <descriptive-title>`
+### PR Merge Commits
+Merge commits for all PRs should include the following in the comment section:<br>
+`Resolves #<issue-1-number>, #<issue-2-number>, ..., <issue-N-number>`<br>
+This line will automatically cause the relevant issues to be closed.
 
 ## Branches
 ### Work on Sprint Tasks
