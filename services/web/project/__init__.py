@@ -24,6 +24,6 @@ def hello_world():
     return jsonify(hello="world")
 
 
-@app.route("/static/<path:filname>")
+@app.route("/static/<path:filename>")
 def staticfile(filename):
     return send_from_directory(app.config["STATIC_FOLDER"], filename)
