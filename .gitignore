@@ -5,3 +5,4 @@ __pycache
 .env.prod
 .env.prod.db
 services/web/env
+services/web/.idea
