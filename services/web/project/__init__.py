@@ -1,11 +1,20 @@
 from flask import Flask, jsonify
-from flask.helpers import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 
-app = Flask(__name__)
-app.config.from_object("project.config.Config")
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+
+
+def create_app():
+    app = Flask(__name__)
+    db.init_app(app)
+    app.config.from_object("project.config.Config")
+    from project.app.views import views
+    from project.app.auth import auth
+    app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/')
+
+    return app
 
 
 class User(db.Model):
@@ -17,13 +26,3 @@ class User(db.Model):
 
     def __init__(self, email):
         self.email = email
-
-
-@app.route("/")
-def hello_world():
-    return jsonify(hello="world")
-
-
-@app.route("/static/<path:filename>")
-def staticfile(filename):
-    return send_from_directory(app.config["STATIC_FOLDER"], filename)
