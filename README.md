@@ -17,10 +17,4 @@ Users can post questions and answer other people's questions to gain points and 
 - Joshua-James Nantel-Ouimet, GH: NanoProd
 - Samaninder Singh, GH:SamSDK
 - Lorne Geniele, GH: hotplate5
-
-# Project Management
-Link to [product backlog](https://docs.google.com/spreadsheets/d/1UjiPOS7TNquyOYNYWAd_79yhs2I2-X5Buqed9Cr6fkk/edit#gid=0)
-
-
-
-
+- 
