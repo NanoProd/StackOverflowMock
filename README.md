@@ -57,6 +57,12 @@ Users can post questions and answer other people's questions to gain points and 
 <img src="https://user-images.githubusercontent.com/19224656/137046586-37c5ff0b-7f59-4274-ba2f-6492c01f4080.png">
 </p>
 
+## Question Page (with Answers)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137047948-46d5b9bc-6cc5-46d7-8fca-68456893e22f.png">
+<img src="https://user-images.githubusercontent.com/19224656/137047950-49658dc7-9559-445a-b753-af8e32cee907.png">
+</p>
+
 # Software Architecture
 Development Note:<br>
 All diagrams are located in the Google drive in the [Software Architecture Diagrams](https://app.diagrams.net/#G11lHgVPedABSrHVzqaIad7T8gBx-x8ebw) file. As development progresses, these diagrams can be modified and re-exported into this file. Access to this file is restricted to DT members only.
