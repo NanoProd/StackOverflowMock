@@ -41,6 +41,17 @@ Users can post questions and answer other people's questions to gain points and 
 9. all the changes will be loaded into the container because we have mounted volumes.
 10. happy codding
 
+# Wireframe
+## User Profile Page
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137045617-75b56fc4-9082-471d-bee7-38b50e45a850.png" width="75%">
+</p>
+
+## Questions Forum Page
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137045669-59873f59-2102-4056-ac27-db468de89b7e.png" width="75%">
+</p>
+
 # Software Architecture
 Development Note:<br>
 All diagrams are located in the Google drive in the [Software Architecture Diagrams](https://app.diagrams.net/#G11lHgVPedABSrHVzqaIad7T8gBx-x8ebw) file. As development progresses, these diagrams can be modified and re-exported into this file. Access to this file is restricted to DT members only.
