@@ -58,7 +58,7 @@ To standardize code organization and make the software modular and therefore ext
 A diagram of the high level architecture of the application is shown below.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/19224656/136255831-497b7c65-82b5-4863-90e2-c030d2bddf9d.png" width="75%">
+<img src="https://user-images.githubusercontent.com/19224656/137186968-7610cd7a-7394-483f-9aef-8555f6311808.png" width="75%">
 </p>
 
 ## UML Class Diagram
