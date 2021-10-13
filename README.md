@@ -68,4 +68,12 @@ Based on the MVC model chosen and the associated diagram shown in the previous s
 <img src="https://user-images.githubusercontent.com/19224656/136256401-d5721490-e35f-4477-9059-13b30abda9a1.png" width="75%">
 </p>
 
+## Entity Relationship Diagram
+The application's database is organized as shown in the diagram below. All models are present in the DB as individual tables as is an additional table dedicated to password storage.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137185785-235bc2b0-270e-46bc-8eba-8df85319bc9d.png" width="75%">
+</p>
+
+
 
