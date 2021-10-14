@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask.helpers import flash
-from flask_login.utils import login_user
+from flask_login.utils import login_user, logout_user
 from project.app.forms import LoginForm
 from project.app.models import User
 
@@ -33,6 +33,7 @@ def login():
 
 @auth.route('/logout')
 def logout():
+    logout_user()
     return redirect('/login')
 
 @auth.route('/signup')
