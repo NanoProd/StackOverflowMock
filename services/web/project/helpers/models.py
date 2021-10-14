@@ -1,4 +1,5 @@
 from project.extensions import db
+from sqlalchemy.sql import func
 
 
 class BaseModel(db.Model):
@@ -11,4 +12,4 @@ class BaseModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(
-        db.DateTime, default=db.func.current_timestamp, onupdate=db.func.current_timestamp)
+        db.DateTime, default=func.now(), onupdate=func.now())
