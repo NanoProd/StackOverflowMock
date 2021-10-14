@@ -33,8 +33,7 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    return "<h1>You have logged out</h1>"
-
+    return redirect('/login')
 
 @auth.route('/signup')
 def signup():
