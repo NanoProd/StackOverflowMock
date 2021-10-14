@@ -6,3 +6,4 @@ __pycache
 .env.prod.db
 services/web/env
 services/web/.idea
+.idea

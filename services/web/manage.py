@@ -1,6 +1,9 @@
 from flask.cli import FlaskGroup
+from flask_sqlalchemy import model
 
-from project import app, db, User
+from project import app
+from project.extensions import db
+from project.app.models import *
 
 
 cli = FlaskGroup(app)
