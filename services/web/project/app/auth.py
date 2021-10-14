@@ -53,7 +53,7 @@ def signup():
         login_user(user_to_create)
         flash(
             f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
-        return redirect(url_for('view.home'))
+        return redirect(url_for('views.home'))
     if form.errors != {}:  # If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(

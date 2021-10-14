@@ -1,6 +1,8 @@
 from flask_login.mixins import UserMixin
-from project.extensions import db, login_manager, bcrypt
+from project.extensions import db, login_manager
 from project.helpers import models
+import bcrypt
+
 
 
 @login_manager.user_loader
@@ -30,8 +32,8 @@ class User(models.BaseModel, UserMixin):
 
     @password.setter
     def password(self, plain_text_password):
-        self.password_hash = bcrypt.generate_password_hash(
-            plain_text_password, method='sha256')
+        self.password_hash = bcrypt.hashpw(
+            plain_text_password.encode('ascii'), bcrypt.gensalt())
 
     def check_password_correction(self, attempted_password):
-        return bcrypt.check_password_hash(self.password, attempted_password)
+        return bcrypt.checkpw(self.password, attempted_password)
