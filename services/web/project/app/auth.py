@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask.globals import request
 from flask.helpers import flash
 from project.extensions import db
-from flask_bcrypt import generate_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
 from project.app.forms import LoginForm, RegisterForm
 from project.app.models import User

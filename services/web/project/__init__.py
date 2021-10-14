@@ -1,6 +1,5 @@
 from flask import Flask
 from .extensions import *
-from flask_bcrypt import Bcrypt
 
 
 def create_app():
@@ -10,7 +9,6 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
     db.init_app(app)
-    bcrypt.init_app(app)
     from project.app.views import views
     from project.app.auth import auth
     app.register_blueprint(views, url_prefix='/')
