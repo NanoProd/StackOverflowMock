@@ -1,6 +1,8 @@
 from flask.cli import FlaskGroup
-
-from project import app, db, User
+from flask_sqlalchemy import model
+from project import app
+from project.extensions import db
+from project.app.models import *
 
 
 cli = FlaskGroup(app)
@@ -15,7 +17,8 @@ def create_db():
 
 @cli.command("seed_db")
 def seed_db():
-    db.session.add(User(email="johnas@concordia.ca"))
+    db.session.add(User(username="test", email="johnas@concordia.ca",
+                        password="test"))
     db.session.commit()
 
 
