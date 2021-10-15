@@ -59,8 +59,8 @@ Users can post questions and answer other people's questions to gain points and 
 
 ## Question Page (with Answers)
 <p align="center">
-<img src="https://user-images.githubusercontent.com/19224656/137047948-46d5b9bc-6cc5-46d7-8fca-68456893e22f.png">
-<img src="https://user-images.githubusercontent.com/19224656/137047950-49658dc7-9559-445a-b753-af8e32cee907.png">
+<img src="https://user-images.githubusercontent.com/19224656/137551694-be85e6c4-749e-4c84-ab0b-d448078d0494.png">
+<img src="https://user-images.githubusercontent.com/19224656/137551716-9808a299-a08d-4813-9b8c-b5a9076fe3bd.png">
 </p>
 
 # Software Architecture
