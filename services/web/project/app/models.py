@@ -40,7 +40,7 @@ class User(models.BaseModel, UserMixin):
         return check_password_hash(self.password, attempted_password)
 
 class Question(models.BaseModel):
-    __tablename__ = "question"
+    __tablename__ = "questions"
 
     title = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
@@ -56,7 +56,7 @@ class Question(models.BaseModel):
         return '<Question %r>' % self.title
 
 class Answer(models.BaseModel):
-    __tablename__ = "answer"
+    __tablename__ = "answers"
 
     body = db.Column(db.String, nullable=False)
     numVotes = db.Column(db.Integer, default=0, nullable=False)
