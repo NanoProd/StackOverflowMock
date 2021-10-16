@@ -38,3 +38,32 @@ class User(models.BaseModel, UserMixin):
 
     def check_password_correction(self, attempted_password):
         return check_password_hash(self.password, attempted_password)
+
+class Question(models.BaseModel):
+    __tablename__ = "question"
+
+    title = db.Column(db.String, nullable=False)
+    body = db.Column(db.String, nullable=False)
+    numVotes = db.Column(db.Integer, default=0, nullable=False)
+    userId = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, title, body, userId):
+        self.title = title
+        self.body = body
+        self.userId = userId
+
+    def __repr__(self):
+        return '<Question %r>' % self.title
+
+class Answer(models.BaseModel):
+    __tablename__ = "answer"
+
+    body = db.Column(db.String, nullable=False)
+    numVotes = db.Column(db.Integer, default=0, nullable=False)
+    userId = db.Column(db.Integer, nullable=False)
+    questionId = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, body, userId, questionId):
+        self.body = body
+        self.userId = userId
+        self.questionId = questionId
