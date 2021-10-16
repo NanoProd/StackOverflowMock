@@ -72,7 +72,7 @@ Based on the MVC model chosen and the associated diagram shown in the previous s
 The application's database is organized as shown in the diagram below. All models are present in the DB as individual tables as is an additional table dedicated to password storage.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/19224656/137568887-113d9491-76e6-44b9-bc45-7f5ebb0447be.png" width="75%">
+<img src="https://user-images.githubusercontent.com/19224656/137570754-2bb1069f-7011-4ead-b4e8-14c528ccda42.png" width="75%">
 </p>
 
 
