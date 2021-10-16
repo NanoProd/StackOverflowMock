@@ -1,7 +1,12 @@
 # Stackoverflow mock
 This web application features a question and answer forum where users can seek help and advice from professionals and enthusiasts around the world. It is a clone of the popular stackoverflow website that we created for our SOEN-341 course at Concordia University.
 
-The main objective of this application is to create a medium which makes it easy for people to obtain reliable and trustworthy information to help them understand any STEM related problems they may be facing. 
+The main objective of this application is to create a medium which makes it easy for people to obtain reliable and trustworthy information to help them understand any STEM related problems they may be facing.
+
+Three core features are to be implemented:
+- Asking and answering questions
+- Voting on answers
+- Accepting the best answer
 
 Users can post questions and answer other people's questions to gain points and increase their reputation in the forum. The more people upvote your answer to a question, the more points you gain!
 # Tech Stack
@@ -9,11 +14,13 @@ Users can post questions and answer other people's questions to gain points and 
 - Python
 - Flask 
 - HTML/CSS
+- Docker
+- GitHub Actions (CI)
 
 # Members
 - Tim Freiman, GH: VimFreeman
 - Philippe Carvajal, GH: PhilCarPi
-- Aleksandr Vinokhodov, GH:daxsis
+- Aleksandr Vinokhodov, GH:daxsis **(Team Lead)**
 - Joshua-James Nantel-Ouimet, GH: NanoProd
 - Samaninder Singh, GH:SamSDK
 - Lorne Geniele, GH: hotplate5
