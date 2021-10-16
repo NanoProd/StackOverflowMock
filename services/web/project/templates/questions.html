@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %} Questions {% endblock %}
+
+{% block content %}
+<div id="questions-main-container" class="container">
+	<div id="questions-header" class="row align-items-start">
+		<div id="questions-header-title" class="col-10">
+			<h1>All Questions</h1>
+		</div>
+		<div id="questions-header-ask-question-btn-container" class="col-2">
+			<button id="questions-header-ask-question-btn" type="button" class="btn btn-success">
+				Ask Question
+			</button>
+		</div>
+	</div>
+	<div id="questions-list" class="row align-items-start">
+	{% for question in questions_list %}
+		<div class="row">
+			<div class="col-2 question-stats-container">
+				<div style="align-items: center; display: flex;" class="h-100 align-middle">
+					{{ question.numVotes }} Votes<br>
+					{{ question.numAnswers }} Answers
+				</div>
+			</div>
+			<div class="col-10 question-container">
+				<h2 class="question-title">
+					{{ question.title }}
+				</h2>
+				<p class="question-body">
+					{{ question.body }}
+				</p>
+				<div class="question-creator-container">
+					<p>
+						Asked by:<br>
+						<b>{{ question.creator.username }}</b> on {{ question.date_created.year }}-{{ question.date_created.month }}-{{ question.date_created.day }}
+					</p>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+</div>
+{% endblock %}
