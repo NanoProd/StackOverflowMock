@@ -7,12 +7,10 @@ from project.app.forms import NewQuestionForm
 views = Blueprint('views', __name__)
 
 @views.route('/')
-@login_required
 def home():
-    return render_template("home.html", user=current_user)
+    return questions()
 
 @views.route('/questions')
-@login_required
 def questions():
 	# Create a list of questions.
 	questions = Question.query.order_by(Question.date_created).all()
