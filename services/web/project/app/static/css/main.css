@@ -3,3 +3,9 @@ div#questions-header {
 	padding: 20px 0px;
 }
 /* END: Questions */
+
+/* BEGIN: Question */
+.vote-btn:hover {
+	cursor: pointer;
+}
+/* END: Question; */
