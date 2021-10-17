@@ -3,32 +3,29 @@
 {%block title%}Sign-up{%endblock%}
 
 {%block content%}
-<form method="POST" class="form-register" style="color:white">
+<form method="POST" class="form-register text-white">
   {{ form.hidden_tag() }}
-  <h1 class="h3 mb-3 font-weight-normal">
-    Please Create your Account
+  <h1 class="h3 mb-3 font-weight-normal text-dark">
+    Create New Account
   </h1>
   <br>
-  {{ form.username.label() }}
   {{ form.username(class="form-control", placeholder="User Name") }}
 
-  {{ form.email.label() }}
-  {{ form.email(class="form-control", placeholder="Email Address") }}
+  {{ form.email(class="form-control mt-3", placeholder="Email Address") }}
 
-  {{ form.password1.label() }}
-  {{ form.password1(class="form-control", placeholder="Password") }}
+  {{ form.password1(class="form-control mt-3", placeholder="Password") }}
 
-  {{ form.password2.label() }}
-  {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+  {{ form.password2(class="form-control mt-3", placeholder="Confirm Password") }}
 
   <br>
 
-  <div class="checkbox mb-3">
-    <h6>Already have an account?</h6>
-    <a class="btn btn-sm btn-secondary" href="{{ url_for('auth.login') }}">Login</a>
-  </div>
+  {{ form.submit(class="btn btn-md btn-block btn-primary") }}
 
-  {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+  <hr>
+  <div class="checkbox mb-3 text-dark">
+    <h6>Already have an account?</h6>
+    <a class="btn btn-md btn-secondary" href="{{ url_for('auth.login') }}">Login</a>
+  </div>
 
 </form>
 {%endblock%}
