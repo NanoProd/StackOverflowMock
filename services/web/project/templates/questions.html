@@ -26,9 +26,11 @@
 				</div>
 			</div>
 			<div class="col-10 question-container">
-				<h2 class="question-title">
-					{{ question.title }}
-				</h2>
+				<a href="/question/{{ question.id }}">
+					<h2 class="question-title">
+						{{ question.title }}
+					</h2>
+				</a>
 				<p class="question-body">
 					{{ question.body }}
 				</p>

@@ -38,3 +38,7 @@ class NewQuestionForm(FlaskForm):
     title = StringField(label='Title', validators=[Length(min=15), DataRequired()])
     body = TextAreaField(label='Body', validators=[Length(min=30), DataRequired()]) 
     submit = SubmitField(label='Post Question')
+
+class NewAnswerForm(FlaskForm):
+    body = TextAreaField(validators=[Length(min=30), DataRequired()])
+    submit = SubmitField(label='Post Answer')

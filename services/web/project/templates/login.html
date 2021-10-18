@@ -3,27 +3,27 @@
 {%block title%}Login{%endblock%}
 
 {%block content%}
-<form method="POST" class="form-signin" style="color:white">
+<form method="POST" class="form-signin text-dark">
   {{ form.hidden_tag() }}
   <h1 class="h3 mb-3 font-weight-normal">
-    Please Login
+    Login
   </h1>
   <br>
-  {{ form.username.label() }}
+  {{ form.username.label(class="mb-1") }}
   {{ form.username(class="form-control", placeholder="User Name") }}
 
-  {{ form.password.label() }}
+  {{ form.password.label(class="mb-1 mt-2") }}
   {{ form.password(class="form-control", placeholder="Password") }}
 
   <br>
 
+  {{ form.submit(class="btn btn-md btn-block btn-primary") }}
 
+  <hr style="color:white;">
   <div class="checkbox mb-3">
     <h6>Do not have an account?</h6>
-    <a class="btn btn-sm btn-secondary" href="{{ url_for('auth.signup') }}">Register</a>
+    <a class="btn btn-md btn-secondary" href="{{ url_for('auth.signup') }}">Register</a>
   </div>
-
-  {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
 
 </form>
 {%endblock%}
