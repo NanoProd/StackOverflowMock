@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, HiddenField
+from wtforms import StringField, PasswordField, SubmitField, HiddenField, TextAreaField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from project.app.models import User
 
@@ -33,3 +33,8 @@ class LoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')
+
+class NewQuestionForm(FlaskForm):
+    title = StringField(label='Title', validators=[Length(min=15), DataRequired()])
+    body = TextAreaField(label='Body', validators=[Length(min=30), DataRequired()]) 
+    submit = SubmitField(label='Post Question')
