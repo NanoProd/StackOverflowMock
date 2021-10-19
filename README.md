@@ -87,7 +87,7 @@ To standardize code organization and make the software modular and therefore ext
 A diagram of the high level architecture of the application is shown below.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/19224656/136255831-497b7c65-82b5-4863-90e2-c030d2bddf9d.png" width="75%">
+<img src="https://user-images.githubusercontent.com/19224656/137186968-7610cd7a-7394-483f-9aef-8555f6311808.png" width="75%">
 </p>
 
 ## UML Class Diagram
@@ -96,5 +96,13 @@ Based on the MVC model chosen and the associated diagram shown in the previous s
 <p align="center">
 <img src="https://user-images.githubusercontent.com/19224656/136256401-d5721490-e35f-4477-9059-13b30abda9a1.png" width="75%">
 </p>
+
+## Entity Relationship Diagram
+The application's database is organized as shown in the diagram below. All models are present in the DB as individual tables as is an additional table dedicated to password storage.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137570754-2bb1069f-7011-4ead-b4e8-14c528ccda42.png" width="75%">
+</p>
+
 
 
