@@ -1,7 +1,12 @@
 # Stackoverflow mock
 This web application features a question and answer forum where users can seek help and advice from professionals and enthusiasts around the world. It is a clone of the popular stackoverflow website that we created for our SOEN-341 course at Concordia University.
 
-The main objective of this application is to create a medium which makes it easy for people to obtain reliable and trustworthy information to help them understand any STEM related problems they may be facing. 
+The main objective of this application is to create a medium which makes it easy for people to obtain reliable and trustworthy information to help them understand any STEM related problems they may be facing.
+
+Three core features are to be implemented:
+- Asking and answering questions
+- Voting on answers
+- Accepting the best answer
 
 Users can post questions and answer other people's questions to gain points and increase their reputation in the forum. The more people upvote your answer to a question, the more points you gain!
 # Tech Stack
@@ -9,11 +14,13 @@ Users can post questions and answer other people's questions to gain points and 
 - Python
 - Flask 
 - HTML/CSS
+- Docker
+- GitHub Actions (CI)
 
 # Members
 - Tim Freiman, GH: VimFreeman
 - Philippe Carvajal, GH: PhilCarPi
-- Aleksandr Vinokhodov, GH:daxsis
+- Aleksandr Vinokhodov, GH:daxsis **(Team Lead)**
 - Joshua-James Nantel-Ouimet, GH: NanoProd
 - Samaninder Singh, GH:SamSDK
 - Lorne Geniele, GH: hotplate5
@@ -41,6 +48,28 @@ Users can post questions and answer other people's questions to gain points and 
 9. all the changes will be loaded into the container because we have mounted volumes.
 10. happy codding
 
+# Wireframe
+## User Profile Page
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137045617-75b56fc4-9082-471d-bee7-38b50e45a850.png" width="75%">
+</p>
+
+## Questions Forum Page
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137045669-59873f59-2102-4056-ac27-db468de89b7e.png" width="75%">
+</p>
+
+## New Question Page
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137046586-37c5ff0b-7f59-4274-ba2f-6492c01f4080.png">
+</p>
+
+## Question Page (with Answers)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137551694-be85e6c4-749e-4c84-ab0b-d448078d0494.png">
+<img src="https://user-images.githubusercontent.com/19224656/137551716-9808a299-a08d-4813-9b8c-b5a9076fe3bd.png">
+</p>
+
 # Software Architecture
 Development Note:<br>
 All diagrams are located in the Google drive in the [Software Architecture Diagrams](https://app.diagrams.net/#G11lHgVPedABSrHVzqaIad7T8gBx-x8ebw) file. As development progresses, these diagrams can be modified and re-exported into this file. Access to this file is restricted to DT members only.
@@ -58,7 +87,7 @@ To standardize code organization and make the software modular and therefore ext
 A diagram of the high level architecture of the application is shown below.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/19224656/136255831-497b7c65-82b5-4863-90e2-c030d2bddf9d.png" width="75%">
+<img src="https://user-images.githubusercontent.com/19224656/137186968-7610cd7a-7394-483f-9aef-8555f6311808.png" width="75%">
 </p>
 
 ## UML Class Diagram
@@ -66,4 +95,11 @@ Based on the MVC model chosen and the associated diagram shown in the previous s
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/19224656/136256401-d5721490-e35f-4477-9059-13b30abda9a1.png" width="75%">
+</p>
+
+## Entity Relationship Diagram
+The application's database is organized as shown in the diagram below. All models are present in the DB as individual tables as is an additional table dedicated to password storage.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19224656/137570754-2bb1069f-7011-4ead-b4e8-14c528ccda42.png" width="75%">
 </p>

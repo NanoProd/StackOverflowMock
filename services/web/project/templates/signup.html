@@ -1,0 +1,31 @@
+{%extends "base.html" %}
+
+{%block title%}Sign-up{%endblock%}
+
+{%block content%}
+<form method="POST" class="form-register text-white">
+  {{ form.hidden_tag() }}
+  <h1 class="h3 mb-3 font-weight-normal text-dark">
+    Create New Account
+  </h1>
+  <br>
+  {{ form.username(class="form-control", placeholder="User Name") }}
+
+  {{ form.email(class="form-control mt-3", placeholder="Email Address") }}
+
+  {{ form.password1(class="form-control mt-3", placeholder="Password") }}
+
+  {{ form.password2(class="form-control mt-3", placeholder="Confirm Password") }}
+
+  <br>
+
+  {{ form.submit(class="btn btn-md btn-block btn-primary") }}
+
+  <hr>
+  <div class="checkbox mb-3 text-dark">
+    <h6>Already have an account?</h6>
+    <a class="btn btn-md btn-secondary" href="{{ url_for('auth.login') }}">Login</a>
+  </div>
+
+</form>
+{%endblock%}
