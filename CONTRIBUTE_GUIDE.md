@@ -47,12 +47,14 @@ This line will automatically cause the relevant issues to be closed.
 ### Work on Sprint Tasks
 Branches associated with issues that represent tasks in the Sprint Backlog are to be named as follows:
 <br>
-`<task-id>/<issue-number>`
+`<task-id>/<descriptive-title>[/<issue-number>]`
+<br><br>
+Where /<issue-number> is optional.
 <br><br>
 For example:<br>
-Assume issue #12 was created for task with id **EG-1-3**, then the corresponding branch will be named as follows:
+Assume issue #12 was created for task with id **EG-1-3: A Dummy Issue For Illustration**, then the corresponding branch will be named as follows:
 <br>
-`eg-1-3/12` (*Notice the letters are all small caps.*)
+`eg-1-3/dummy-issue-for-illustration/12` (*Notice the letters are all small caps.*)
 ### Work on other issues
 Branches associated with issues that do NOT represent tasks in the Sprint should be named as follows:
 <br>
