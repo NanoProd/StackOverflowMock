@@ -103,6 +103,3 @@ The application's database is organized as shown in the diagram below. All model
 <p align="center">
 <img src="https://user-images.githubusercontent.com/19224656/137570754-2bb1069f-7011-4ead-b4e8-14c528ccda42.png" width="75%">
 </p>
-
-
-
