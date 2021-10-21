@@ -64,10 +64,9 @@ $(document).ready(function(){
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
 				<div class="h-90 text-center">
-                    <div id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a></div>
+                    <a id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
 						<span>{{ answer.numVotes }}</span><br>
-					<div id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
-					
+					<a id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
 				</div>
 				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
 					&#10003;
