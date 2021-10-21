@@ -6,6 +6,7 @@ $(document).ready(function(){
 	$('#upVote').on( 'click', function(event){
 	var answer_id = $(this).data('id');
 	var url = '/upVote/' + answer_id;
+    console.log('up')
 	request = $.ajax({
 		url: url,
 		type: 'POST',
@@ -20,6 +21,7 @@ $(document).ready(function(){
 $('#downVote').on( 'click', function(event){
 	var answer_id = $(this).data('id');
 	var url = '/downVote/' + answer_id;
+    console.log('down')
 	request = $.ajax({
 		url: url,
 		type: 'POST',

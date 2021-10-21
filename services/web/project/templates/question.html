@@ -2,6 +2,39 @@
 
 {% block title %} Question {% endblock %}
 
+{% block script %} 
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('#upVote').on( 'click', function(event){
+        answer_id = $(this).data('id');
+        url = '\/vote\/' +{{ question.id }} + '\/' + answer_id + '\/1';
+        request = $.ajax({
+            url: url,
+            type: 'GET',
+        });
+
+        request.done(function(data){
+            location.reload();
+        });
+    });
+
+    $('#downVote').on( 'click', function(event){
+        answer_id = $(this).data('id');
+        url = '\/vote\/' +{{ question.id }} + '\/' + answer_id + '\/0';
+        request = $.ajax({
+            url: url,
+            type: 'GET',
+        });
+
+        request.done(function(data){
+            location.reload();
+        });
+    });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <div id="new-question-main-container" class="container">
 	<h1>{{ question.title }}</h1>
@@ -31,9 +64,9 @@
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
 				<div class="h-90 text-center">
-					<a href="/question/{{question.id}}" id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
+                    <div id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a></div>
 						<span>{{ answer.numVotes }}</span><br>
-					<a href="/question/{{question.id}}" id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
+					<div id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
 					
 				</div>
 				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
@@ -75,39 +108,3 @@
 </div>
 {% endblock %}
 
-<script type="text/javascript">
-
-$(document).ready(function(){
-
-	$('#upVote').on( 'click', function(event){
-	var answer_id = $(this).data('id');
-	var url = '/upVote/' + answer_id;
-	request = $.ajax({
-		url: url,
-		type: 'POST',
-		//data: {answer_id: answer_id}
-	});
-
-	request.done(function(data){
-		location.reload();
-	});
-});
-
-$('#downVote').on( 'click', function(event){
-	var answer_id = $(this).data('id');
-	var url = '/downVote/' + answer_id;
-	request = $.ajax({
-		url: url,
-		type: 'POST',
-		//data: {answer_id: answer_id}
-	});
-
-	request.done(function(data){
-		location.reload();
-	});
-});
-});
-
-
-
-</script>
