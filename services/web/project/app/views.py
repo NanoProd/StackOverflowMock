@@ -64,9 +64,9 @@ def question(question_id):
 		a.creator = User.query.get(a.userId)
 	return render_template('question.html', question = question, form = form)
 
-@views.route('/upVote/<answer_id>', methods=['POST'])
+@views.route('/upVote/<answer_id>', methods=['POST', 'GET'])
 def upVote(answer_id):
-	answer_to_update = Answer.query.get(id=request.form['answer_id'])
+	answer_to_update = Answer.query.get(answer_id)
 	if Request.method == 'POST':
 		answer_to_update.numVotes += 1
 		try:
@@ -74,18 +74,21 @@ def upVote(answer_id):
 			return render_template("questions.html", user=current_user, questions_list=questions)
 		except:
 			return "There was a problem updating votes"
+	else:
+		return render_template("questions.html", user=current_user, questions_list=questions)
 
-@views.route('/downVote/<answer_id>', methods=['POST'])
+@views.route('/downVote/<answer_id>', methods=['POST', 'GET'])
 def downVote(answer_id):
-	answer_to_update = Answer.query.get(id=request.form['answer_id'])
-	current_votes = answer_to_update.numVotes
+	answer_to_update = Answer.query.get(answer_id)
 	if Request.method == 'POST':
-		answer_to_update.numVotes = current_votes - 1
+		answer_to_update.numVotes -= 1
 		try:
 			db.session.commit()
 			return render_template("questions.html", user=current_user, questions_list=questions)
 		except:
 			return "There was a problem downvoting"
+	else:
+		return render_template("questions.html", user=current_user, questions_list=questions)
 
 # Temporary method returns files in static/css/
 @views.route('/static/css/<filename>')

@@ -7,7 +7,7 @@
 	<h1>{{ question.title }}</h1>
 	<div id="question-container" class="row">
 		<div class="col-1 question-votes-container">
-			<div style="" class="h-100 text-center">
+			<div  class="h-100 text-center">
 				<span class="vote-btn">&#9650</span><br>
 				<span>{{ question.numVotes }}</span><br>
 				<span class="vote-btn">&#9660</span>
@@ -31,9 +31,9 @@
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
 				<div class="h-90 text-center">
-					<a href="" id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
+					<a href="/question/{{question.id}}" id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
 						<span>{{ answer.numVotes }}</span><br>
-					<a href="" id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
+					<a href="/question/{{question.id}}" id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
 					
 				</div>
 				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
@@ -75,36 +75,39 @@
 </div>
 {% endblock %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
+<script type="text/javascript">
 
+$(document).ready(function(){
 
-$("#upVote").click(function(){
+	$('#upVote').on( 'click', function(event){
 	var answer_id = $(this).data('id');
 	var url = '/upVote/' + answer_id;
 	request = $.ajax({
 		url: url,
 		type: 'POST',
-		data: {answer_id: answer_id}
+		//data: {answer_id: answer_id}
 	});
 
 	request.done(function(data){
 		location.reload();
 	});
 });
-$("#downVote").click(function(){
+
+$('#downVote').on( 'click', function(event){
 	var answer_id = $(this).data('id');
 	var url = '/downVote/' + answer_id;
 	request = $.ajax({
 		url: url,
 		type: 'POST',
-		data: {answer_id: answer_id}
+		//data: {answer_id: answer_id}
 	});
 
 	request.done(function(data){
 		location.reload();
 	});
 });
+});
+
 
 
 </script>
