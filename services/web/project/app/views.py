@@ -44,7 +44,7 @@ def question(question_id):
     if question == None:
         questions()
     # Get list of answers for question
-    question.answers = Answer.query.filter_by(questionId = question.id).all()
+    question.answers = Answer.query.filter_by(questionId = question.id).order_by(Answer.numVotes.desc()).all()
     question.numAnswers = len(question.answers)
     # Get the question's creator and assign it as an attribute
     question.creator = User.query.get(question.userId)
