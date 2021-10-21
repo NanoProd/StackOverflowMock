@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, jsonify, request
 from flask.helpers import send_from_directory, flash
+from flask.wrappers import Request
 from flask_login import login_required, current_user
 from project.app.models import *
 from project.app.forms import NewQuestionForm, NewAnswerForm
@@ -62,6 +63,29 @@ def question(question_id):
 	for a in question.answers:
 		a.creator = User.query.get(a.userId)
 	return render_template('question.html', question = question, form = form)
+
+@views.route('/upVote/<answer_id>', methods=['POST'])
+def upVote(answer_id):
+	answer_to_update = Answer.query.get(id=request.form['answer_id'])
+	if Request.method == 'POST':
+		answer_to_update.numVotes += 1
+		try:
+			db.session.commit()
+			return render_template("questions.html", user=current_user, questions_list=questions)
+		except:
+			return "There was a problem updating votes"
+
+@views.route('/downVote/<answer_id>', methods=['POST'])
+def downVote(answer_id):
+	answer_to_update = Answer.query.get(id=request.form['answer_id'])
+	current_votes = answer_to_update.numVotes
+	if Request.method == 'POST':
+		answer_to_update.numVotes = current_votes - 1
+		try:
+			db.session.commit()
+			return render_template("questions.html", user=current_user, questions_list=questions)
+		except:
+			return "There was a problem downvoting"
 
 # Temporary method returns files in static/css/
 @views.route('/static/css/<filename>')

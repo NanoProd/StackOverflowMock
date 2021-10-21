@@ -25,15 +25,16 @@
 			</div>
 		</div>
 	</div>
-	<div id="answers-continer" class="container">
+	<div id="answers-container" class="container">
 		<h2>{{ question.numAnswers }} Aswers</h2>
 		{% for answer in question.answers %}
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
-				<div style="" class="h-90 text-center">
-					<span class="vote-btn">&#9650</span><br>
-					<span>{{ answer.numVotes }}</span><br>
-					<span class="vote-btn">&#9660</span>
+				<div class="h-90 text-center">
+					<a href="" id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
+						<span>{{ answer.numVotes }}</span><br>
+					<a href="" id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
+					
 				</div>
 				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
 					&#10003;
@@ -73,3 +74,37 @@
 	</div>
 </div>
 {% endblock %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+
+$("#upVote").click(function(){
+	var answer_id = $(this).data('id');
+	var url = '/upVote/' + answer_id;
+	request = $.ajax({
+		url: url,
+		type: 'POST',
+		data: {answer_id: answer_id}
+	});
+
+	request.done(function(data){
+		location.reload();
+	});
+});
+$("#downVote").click(function(){
+	var answer_id = $(this).data('id');
+	var url = '/downVote/' + answer_id;
+	request = $.ajax({
+		url: url,
+		type: 'POST',
+		data: {answer_id: answer_id}
+	});
+
+	request.done(function(data){
+		location.reload();
+	});
+});
+
+
+</script>
