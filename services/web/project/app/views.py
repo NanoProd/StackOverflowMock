@@ -76,8 +76,6 @@ def vote(question_id, answer_id, value):
     except:
         return "There was a problem updating votes"
     return redirect(request.referrer)
-    # return redirect(url_for('views.question', question_id = question_id))
-    # return render_template('question.html', question = question, form = form)
 
 # Temporary method returns files in static/css/
 @views.route('/static/css/<filename>')
