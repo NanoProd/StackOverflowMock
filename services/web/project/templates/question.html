@@ -6,8 +6,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	$('#upVote').on( 'click', function(event){
-        answer_id = $(this).data('id');
+	$('.upVote').on( 'click', function(event){
+        answer_id = $(this).attr('data-id');
         url = '\/vote\/' +{{ question.id }} + '\/' + answer_id + '\/1';
         request = $.ajax({
             url: url,
@@ -19,8 +19,8 @@ $(document).ready(function(){
         });
     });
 
-    $('#downVote').on( 'click', function(event){
-        answer_id = $(this).data('id');
+    $('.downVote').on( 'click', function(event){
+        answer_id = $(this).attr('data-id');
         url = '\/vote\/' +{{ question.id }} + '\/' + answer_id + '\/0';
         request = $.ajax({
             url: url,
@@ -64,9 +64,9 @@ $(document).ready(function(){
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
 				<div class="h-90 text-center">
-                    <a id="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
+                    <a id="upVote" class="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
 						<span>{{ answer.numVotes }}</span><br>
-					<a id="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
+					<a id="downVote" class="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
 				</div>
 				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
 					&#10003;
