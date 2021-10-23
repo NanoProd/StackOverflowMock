@@ -49,8 +49,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     
     - name: Test with unittest
+      working-directory: ./services/web/project
       run: |
-        # enter the project directory
-        cd services/web/project
         # run the discoverable tests
         python -m unittest discover
