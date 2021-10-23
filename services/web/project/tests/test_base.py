@@ -3,12 +3,16 @@
 import os
 import unittest
  
-import app
-from project.main import app
-from project.extensions import db
- 
+
+from project import create_app, db
+
+
 TEST_DB = 'test.db'
- 
+
+
+app = create_app()
+
+
 class BasicTests(unittest.TestCase):
  
     ############################
@@ -23,8 +27,10 @@ class BasicTests(unittest.TestCase):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
         os.path.join(app.config['BASEDIR'], TEST_DB)
         self.app = app.test_client()
-        db.drop_all()
-        db.create_all()
+
+        with app.app_context():
+            db.drop_all()
+            db.create_all()
     
         self.assertEqual(app.debug, False)
         
