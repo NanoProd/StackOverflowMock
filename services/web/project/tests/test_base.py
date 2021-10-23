@@ -15,9 +15,7 @@ app = create_app()
 
 class BasicTests(unittest.TestCase):
 
-    ############################
-    #### setup and teardown ####
-    ############################
+    # setup and teardown
 
     # executed prior to each test
     def setUp(self):
@@ -38,9 +36,7 @@ class BasicTests(unittest.TestCase):
     def tearDown(self):
         pass
 
-    ###############
-    #### tests ####
-    ###############
+    # tests
 
     def test_main_page(self):
         response = self.app.get('/', follow_redirects=True)
