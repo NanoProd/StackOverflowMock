@@ -50,4 +50,7 @@ jobs:
     
     - name: Test with unittest
       run: |
+        # enter the project directory
+        cd services/web/project
+        # run the discoverable tests
         python -m unittest discover
