@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask.helpers import send_from_directory
 from flask_login import login_required, current_user
-from project import app, db
+from project import db
 from project.app.models import User, Question, Answer
 from project.app.forms import NewQuestionForm, NewAnswerForm
 
@@ -45,7 +45,7 @@ def question(question_id):
     # Get question from DB
     question = Question.query.get(question_id)
     # Validate that question exists; if not, route to questions forum
-    if question == None:
+    if question is None:
         questions()
         questions()
         questions()
