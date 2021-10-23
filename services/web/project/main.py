@@ -1,4 +1,3 @@
-from logging import DEBUG
 from project import create_app
 
 app = create_app()

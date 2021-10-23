@@ -1,5 +1,5 @@
 from flask import Flask
-from .extensions import *
+from .extensions import db, login_manager, csrf
 
 
 def create_app():
