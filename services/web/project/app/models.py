@@ -39,6 +39,7 @@ class User(models.BaseModel, UserMixin):
     def check_password_correction(self, attempted_password):
         return check_password_hash(self.password, attempted_password)
 
+
 class Question(models.BaseModel):
     __tablename__ = "questions"
 
@@ -54,6 +55,7 @@ class Question(models.BaseModel):
 
     def __repr__(self):
         return '<Question %r>' % self.title
+
 
 class Answer(models.BaseModel):
     __tablename__ = "answers"
