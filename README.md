@@ -37,8 +37,8 @@ Users can post questions and answer other people's questions to gain points and 
  - login: dev@concordia.ca
  - pass: root
  - use `postgres` as a hostname, `5432` as port with user `flask` password `flask` in your pgadmin dashboard when creating new connection the first time.
-9. all the changes will be loaded into the container because we have mounted volumes.
-10. happy codding
+8. all the changes will be loaded into the container because we have mounted volumes.
+9. happy codding
 
 # Wireframe
 ## User Profile Page
