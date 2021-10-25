@@ -19,11 +19,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
-                <a href="/login" class="navbar-item nav-link" id="login">Login</a>
-                <a href="/signup" class="navbar-item nav-link" id="signup">Sign-up</a>
-                <a href="/logout" class="navbar-item nav-link" id="logout">Log out</a>
-                <a href="/" class="navbar-item nav-link" id="home">Home</a>
-                <a href="/questions" class="navbar-item nav-link" id="questions">Questions</a>
+                <a href="{{ url_for('auth.login') }}" class="navbar-item nav-link" id="login">Login</a>
+                <a href="{{ url_for('auth.signup') }}" class="navbar-item nav-link" id="signup">Sign-up</a>
+                <a href="{{ url_for('auth.logout') }}" class="navbar-item nav-link" id="logout">Log out</a>
+                <a href="{{ url_for('views.home') }}" class="navbar-item nav-link" id="home">Home</a>
+                <a href="{{ url_for('views.questions') }}" class="navbar-item nav-link" id="questions">Questions</a>
             </div>
         </div>
     </nav>
