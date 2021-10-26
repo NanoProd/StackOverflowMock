@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, jsonify, request
-from flask.helpers import send_from_directory, flash
-from flask.wrappers import Request
+from flask import Blueprint, render_template, redirect, url_for, request
+from flask.helpers import send_from_directory
 
 from flask_login import login_required, current_user
 from project import db
@@ -47,7 +46,7 @@ def question(question_id):
     # Get question from DB
     question = Question.query.get(question_id)
     # Validate that question exists; if not, route to questions forum
-    if question == None:
+    if question is None:
         questions()
     # Get list of answers for question
     question.answers = Answer.query.filter_by(
@@ -81,7 +80,7 @@ def vote(question_id, answer_id, value):
         answer_to_update.numVotes -= 1
     try:
         db.session.commit()
-    except:
+    except Exception:
         return "There was a problem updating votes"
     return redirect(request.referrer)
 
