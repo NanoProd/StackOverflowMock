@@ -22,7 +22,7 @@ def questions():
     # For each question add the username of the creator, and the number of answers as attributes.
     for q in questions:
         q.creator = User.query.get(q.userId)
-        q.numAnswers = len(Answer.query.filter_by(questionId = q.id).all())
+        q.numAnswers = len(Answer.query.filter_by(questionId=q.id).all())
     return render_template("questions.html", user=current_user, questions_list=questions)
 
 
@@ -34,7 +34,7 @@ def new_question():
         title = form.title.data
         body = form.body.data
         # Add new question in DB
-        q = Question(title,body,current_user.id)
+        q = Question(title, body, current_user.id)
         db.session.add(q)
         db.session.commit()
         return redirect(url_for("views.question", question_id=q.id))
@@ -50,7 +50,8 @@ def question(question_id):
     if question == None:
         questions()
     # Get list of answers for question
-    question.answers = Answer.query.filter_by(questionId = question.id).order_by(Answer.numVotes.desc()).all()
+    question.answers = Answer.query.filter_by(
+        questionId=question.id).order_by(Answer.numVotes.desc()).all()
     question.numAnswers = len(question.answers)
     # Get the question's creator and assign it as an attribute
     question.creator = User.query.get(question.userId)
@@ -60,7 +61,7 @@ def question(question_id):
     if form.validate_on_submit():
         body = form.body.data
         # Add answer to DB
-        a = Answer(body,current_user.id,question.id)
+        a = Answer(body, current_user.id, question.id)
         db.session.add(a)
         db.session.commit()
         return redirect(url_for('views.question', question_id=question_id))
@@ -68,7 +69,8 @@ def question(question_id):
     # For each answer, add the creator as an attribute
     for a in question.answers:
         a.creator = User.query.get(a.userId)
-    return render_template('question.html', question = question, form = form)
+    return render_template('question.html', question=question, form=form)
+
 
 @views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
 def vote(question_id, answer_id, value):
@@ -92,4 +94,3 @@ def staticfile(filename):
 # @views.route("/static/<path:filename>")
 # def staticfile(filename):
 #     return send_from_directory(views.config["STATIC_FOLDER"], filename)
-

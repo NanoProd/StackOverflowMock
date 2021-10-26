@@ -16,13 +16,20 @@ def create_db():
 
 @cli.command("seed_db")
 def seed_db():
-    db.session.add(User(username="test", email="johnas@concordia.ca", password="test"))
-    db.session.add(Question(title="Test Question 1", body="This is a test question. It is intended to be inserted into the DB as a seed.", userId=1))
-    db.session.add(Answer(body="#1 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=1))
-    db.session.add(Answer(body="#2 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=1))
-    db.session.add(Question(title="Test Question 2", body="This is a test question. It is intended to be inserted into the DB as a seed.", userId=1))
-    db.session.add(Answer(body="#1 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=2))
-    db.session.add(Answer(body="#2 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=2))
+    db.session.add(
+        User(username="test", email="johnas@concordia.ca", password="test"))
+    db.session.add(Question(title="Test Question 1",
+                   body="This is a test question. It is intended to be inserted into the DB as a seed.", userId=1))
+    db.session.add(Answer(
+        body="#1 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=1))
+    db.session.add(Answer(
+        body="#2 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=1))
+    db.session.add(Question(title="Test Question 2",
+                   body="This is a test question. It is intended to be inserted into the DB as a seed.", userId=1))
+    db.session.add(Answer(
+        body="#1 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=2))
+    db.session.add(Answer(
+        body="#2 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=2))
     db.session.commit()
 
 
