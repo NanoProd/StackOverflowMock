@@ -12,8 +12,9 @@ services:
                         - ./.env.dev
         db:
                 image: postgres:13-alpine
+                hostname: postgres
                 volumes:
-                        - postgres_data:/var/lib/postgresql/data/
+                        - postgres_data:/var/lib/postgresql/data
                 environment:
                         - POSTGRES_USER=flask
                         - POSTGRES_PASSWORD=flask
@@ -21,6 +22,8 @@ services:
         pgadmin:
                 image: dpage/pgadmin4
                 restart: unless-stopped
+                volumes:
+                        - pgadmin:/var/lib/pgadmin
                 environment:
                         PGADMIN_DEFAULT_EMAIL: dev@concordia.ca
                         PGADMIN_DEFAULT_PASSWORD: root
@@ -29,3 +32,4 @@ services:
 
 volumes:
         postgres_data:
+        pgadmin:

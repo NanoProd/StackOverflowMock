@@ -1,8 +1,7 @@
 from flask.cli import FlaskGroup
-from flask_sqlalchemy import model
 from project import app
 from project.extensions import db
-from project.app.models import *
+from project.app.models import User, Question, Answer
 
 
 cli = FlaskGroup(app)

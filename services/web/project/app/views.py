@@ -1,15 +1,19 @@
 from flask import Blueprint, render_template, redirect, url_for, jsonify, request
 from flask.helpers import send_from_directory, flash
 from flask.wrappers import Request
+
 from flask_login import login_required, current_user
-from project.app.models import *
+from project import db
+from project.app.models import User, Question, Answer
 from project.app.forms import NewQuestionForm, NewAnswerForm
 
 views = Blueprint('views', __name__)
 
+
 @views.route('/')
 def home():
     return questions()
+
 
 @views.route('/questions')
 def questions():
@@ -21,7 +25,8 @@ def questions():
         q.numAnswers = len(Answer.query.filter_by(questionId = q.id).all())
     return render_template("questions.html", user=current_user, questions_list=questions)
 
-@views.route('/new_question', methods=['GET','POST'])
+
+@views.route('/question', methods=['GET', 'POST'])
 @login_required
 def new_question():
     form = NewQuestionForm()
@@ -36,7 +41,8 @@ def new_question():
 
     return render_template("new_question.html", form=form)
 
-@views.route('/question/<question_id>', methods=['GET','POST'])
+
+@views.route('/questions/<question_id>', methods=['GET', 'POST'])
 def question(question_id):
     # Get question from DB
     question = Question.query.get(question_id)
@@ -77,12 +83,13 @@ def vote(question_id, answer_id, value):
         return "There was a problem updating votes"
     return redirect(request.referrer)
 
+
 # Temporary method returns files in static/css/
 @views.route('/static/css/<filename>')
 def staticfile(filename):
     return send_from_directory('app/static/css/', filename)
-
 # BUG: The function below does not return the files in static as expected.
 # @views.route("/static/<path:filename>")
 # def staticfile(filename):
 #     return send_from_directory(views.config["STATIC_FOLDER"], filename)
+

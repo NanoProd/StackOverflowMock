@@ -8,3 +8,5 @@ __pycache
 services/web/env
 services/web/.idea
 .idea
+.devcontainer
+services/web/project/test.db

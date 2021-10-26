@@ -36,17 +36,9 @@ Users can post questions and answer other people's questions to gain points and 
 7. pgadmin is located on `localhost:5050` with credentials:
  - login: dev@concordia.ca
  - pass: root
-8. to find ip of the db container 
- - `docker ps`  find the name of the db container, it will be like `project_db_1` 
- - `docker instpect project_db_1 | grep "IPAddress"` you will see something 
-```
-"SecondaryIPAddresses": null,
-"IPAddress": "",
-    "IPAddress": "172.21.0.2",
-```
- - use `172.21.0.2` you found in the output for connecting to the db container in your pgadmin dashboard.
-9. all the changes will be loaded into the container because we have mounted volumes.
-10. happy codding
+ - use `postgres` as a hostname, `5432` as port with user `flask` password `flask` in your pgadmin dashboard when creating new connection the first time.
+8. all the changes will be loaded into the container because we have mounted volumes.
+9. happy codding
 
 # Wireframe
 ## User Profile Page
@@ -103,6 +95,3 @@ The application's database is organized as shown in the diagram below. All model
 <p align="center">
 <img src="https://user-images.githubusercontent.com/19224656/137570754-2bb1069f-7011-4ead-b4e8-14c528ccda42.png" width="75%">
 </p>
-
-
-
