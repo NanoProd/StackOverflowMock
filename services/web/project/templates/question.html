@@ -8,8 +8,8 @@
 
 		$('.upVote').on('click', function (event) {
 			answer_id = $(this).attr('data-id');
-			url = '\/vote\/' + {{ question.id }
-		} + '\/' + answer_id + '\/1';
+			url = '/vote/' + {{ question.id }} 
+                + '/' + answer_id + '/1';
 		request = $.ajax({
 			url: url,
 			type: 'GET',
@@ -22,8 +22,8 @@
 
 	$('.downVote').on('click', function (event) {
 		answer_id = $(this).attr('data-id');
-		url = '\/vote\/' + {{ question.id }
-	} + '\/' + answer_id + '\/0';
+		url = '/vote/' + {{ question.id }} 
+            + '/' + answer_id + '/0';
 	request = $.ajax({
 		url: url,
 		type: 'GET',
