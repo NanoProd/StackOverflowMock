@@ -8,7 +8,6 @@ from project.app.forms import NewQuestionForm, NewAnswerForm
 
 views = Blueprint('views', __name__)
 
-
 @views.route('/')
 def home():
     return questions()
@@ -84,12 +83,8 @@ def vote(question_id, answer_id, value):
         return "There was a problem updating votes"
     return redirect(request.referrer)
 
-
-# Temporary method returns files in static/css/
-@views.route('/static/css/<filename>')
-def staticfile(filename):
-    return send_from_directory('app/static/css/', filename)
-# BUG: The function below does not return the files in static as expected.
-# @views.route("/static/<path:filename>")
-# def staticfile(filename):
-#     return send_from_directory(views.config["STATIC_FOLDER"], filename)
+# Temporary method returns files in static/*/
+@views.route('/static/<foldername>/<filename>')
+def staticfile(foldername,filename):
+    path_to_file = foldername + "/" + filename;
+    return send_from_directory('app/static/', path_to_file)

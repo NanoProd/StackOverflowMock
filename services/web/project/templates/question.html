@@ -3,6 +3,7 @@
 {% block title %} Question {% endblock %}
 
 {% block script %}
+<<<<<<< Updated upstream
 <script type="text/javascript">
 	$(document).ready(function () {
 
@@ -18,20 +19,29 @@
 		request.done(function (data) {
 			location.reload();
 		});
+
+		// Attatch event listener to best answer selection buttons.
+		$('.best-answer-selection-btn').on('click', function(event) {
+			question_id = $(this).attr('q-id');
+			answer_id = $(this).attr('ans-id');
+			url = "/question/" + question_id + "/bestAnswer/" + answer_id;
+			// window.location.replace(url);
+			console.log(url);
+		});
 	});
 
 	$('.downVote').on('click', function (event) {
 		answer_id = $(this).attr('data-id');
 		url = '/vote/' + {{ question.id }} 
             + '/' + answer_id + '/0';
-	request = $.ajax({
-		url: url,
-		type: 'GET',
-	});
+		request = $.ajax({
+			url: url,
+			type: 'GET',
+		});
 
-	request.done(function (data) {
-		location.reload();
-	});
+		request.done(function (data) {
+			location.reload();
+		});
     });
 });
 </script>
@@ -70,6 +80,9 @@
 					<a id="upVote" class="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
 					<span>{{ answer.numVotes }}</span><br>
 					<a id="downVote" class="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
+				</div>
+				<div class="best-answer-selection-container mt-3">
+					<button class="best-answer-selection-btn btn-success" q-id="{{ question.id }}" ans-id="{{ answer.id }}" style="font-size: 0.6em; width: 100%;">Make Best Answer</button>
 				</div>
 				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
 					&#10003;
