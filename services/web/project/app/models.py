@@ -64,6 +64,7 @@ class Answer(models.BaseModel):
     numVotes = db.Column(db.Integer, default=0, nullable=False)
     userId = db.Column(db.Integer, nullable=False)
     questionId = db.Column(db.Integer, nullable=False)
+    is_accepted_answer = db.Column(db.Boolean, default=False, nullable=False)
 
     def __init__(self, body, userId, questionId):
         self.body = body
