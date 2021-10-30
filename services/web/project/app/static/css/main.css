@@ -2,6 +2,24 @@ body {
 	padding-top: 5rem;
 }
 
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.clickable {
+    cursor:pointer; 
+}
+
+a.deco-none {
+    color:#000000 !important;
+    text-decoration:none;
+}
+
 /* BEGIN: Questions */
 div#questions-header {
 	padding: 20px 0px;
@@ -9,7 +27,5 @@ div#questions-header {
 /* END: Questions */
 
 /* BEGIN: Question */
-.vote-btn:hover {
-	cursor: pointer;
-}
+
 /* END: Question; */
