@@ -39,8 +39,9 @@ class QuestionCtrl():
                 question.hasAcceptedAnswer = True
 
         # Determine if user owns question
-        if (current_user.id == question.userId):
-            question.user_is_owner = True
+        if (current_user.is_authenticated):
+            if(current_user.id == question.userId):
+                question.user_is_owner = True
 
         # Process form
         form = NewAnswerForm()
