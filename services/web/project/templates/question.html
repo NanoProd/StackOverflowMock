@@ -7,22 +7,24 @@
 	$(document).ready(function () {
 
 		$('.upVote').on('click', function (event) {
+			question_id = $(this).data("qid");
 			answer_id = $(this).attr('data-id');
-			url = '/vote/' + {{ question.id }} 
+			url = '/vote/' + question_id
                 + '/' + answer_id + '/1';
-		request = $.ajax({
-			url: url,
-			type: 'GET',
-		});
+			request = $.ajax({
+				url: url,
+				type: 'GET',
+			});
 
-		request.done(function (data) {
-			location.reload();
+			request.done(function (data) {
+				location.reload();
+			});
 		});
-	});
 
 	$('.downVote').on('click', function (event) {
+		question_id = $(this).data("qid");
 		answer_id = $(this).attr('data-id');
-		url = '/vote/' + {{ question.id }} 
+		url = '/vote/' + question_id
             + '/' + answer_id + '/0';
 	request = $.ajax({
 		url: url,
@@ -62,14 +64,14 @@
 		</div>
 	</div>
 	<div id="answers-container" class="container">
-		<h2>{{ question.numAnswers }} Aswers</h2>
+		<h2>{{ question.numAnswers }} Answers</h2>
 		{% for answer in question.answers %}
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
 				<div class="h-90 text-center">
-					<a id="upVote" class="upVote" data-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
+					<a id="upVote" class="upVote" data-id="{{answer.id}}" data-qid="{{question.id}}"><span class="vote-btn">&#9650<br></span></a>
 					<span>{{ answer.numVotes }}</span><br>
-					<a id="downVote" class="downVote" data-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
+					<a id="downVote" class="downVote" data-id="{{answer.id}}" data-qid="{{question.id}}" ><span class="vote-btn">&#9660</span></a>
 				</div>
 				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
 					&#10003;
