@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 from flask.helpers import send_from_directory
+
 from flask_login import login_required, current_user
 from project import db
 from project.app.models import User, Question, Answer
@@ -47,10 +48,9 @@ def question(question_id):
     # Validate that question exists; if not, route to questions forum
     if question is None:
         questions()
-        questions()
-        questions()
     # Get list of answers for question
-    question.answers = Answer.query.filter_by(questionId=question.id).all()
+    question.answers = Answer.query.filter_by(
+        questionId=question.id).order_by(Answer.numVotes.desc()).all()
     question.numAnswers = len(question.answers)
     # Get the question's creator and assign it as an attribute
     question.creator = User.query.get(question.userId)
@@ -70,13 +70,26 @@ def question(question_id):
         a.creator = User.query.get(a.userId)
     return render_template('question.html', question=question, form=form)
 
-# BUG: The function below does not return the files in static as expected.
-# @views.route("/static/<path:filename>")
-# def static_file(filename):
-#     return send_from_directory(app.config["STATIC_FOLDER"], filename)
+
+@views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
+def vote(question_id, answer_id, value):
+    answer_to_update = Answer.query.get(answer_id)
+    if int(value) == 1:
+        answer_to_update.numVotes += 1
+    else:
+        answer_to_update.numVotes -= 1
+    try:
+        db.session.commit()
+    except Exception:
+        return "There was a problem updating votes"
+    return redirect(request.referrer)
 
 
 # Temporary method returns files in static/css/
 @views.route('/static/css/<filename>')
 def staticfile(filename):
     return send_from_directory('app/static/css/', filename)
+# BUG: The function below does not return the files in static as expected.
+# @views.route("/static/<path:filename>")
+# def staticfile(filename):
+#     return send_from_directory(views.config["STATIC_FOLDER"], filename)
