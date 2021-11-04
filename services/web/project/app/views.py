@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask.helpers import send_from_directory
+from flask.helpers import send_file
 
 from flask_login import login_required, current_user
 from project import db
 from project.app.models import User, Question, Answer
-from project.app.forms import NewQuestionForm, NewAnswerForm
+from project.app.forms import NewQuestionForm
+from project.app.controllers import QuestionCtrl
 
 views = Blueprint('views', __name__)
 
@@ -18,11 +19,15 @@ def home():
 def questions():
     # Create a list of questions.
     questions = Question.query.order_by(Question.date_created).all()
-    # For each question add the username of the creator, and the number of answers as attributes.
+    # For each question add the username of the creator,
+    # and the number of answers as attributes.
     for q in questions:
         q.creator = User.query.get(q.userId)
         q.numAnswers = len(Answer.query.filter_by(questionId=q.id).all())
-    return render_template("questions.html", user=current_user, questions_list=questions)
+    return render_template(
+        "questions.html",
+        user=current_user,
+        questions_list=questions)
 
 
 @views.route('/question', methods=['GET', 'POST'])
@@ -36,39 +41,53 @@ def new_question():
         q = Question(title, body, current_user.id)
         db.session.add(q)
         db.session.commit()
-        return redirect(url_for("views.question", question_id=q.id))
+        return redirect(url_for(
+            "views.question",
+            method="getQuestion",
+            arg1=q.id))
 
     return render_template("new_question.html", form=form)
 
 
-@views.route('/questions/<question_id>', methods=['GET', 'POST'])
-def question(question_id):
-    # Get question from DB
-    question = Question.query.get(question_id)
-    # Validate that question exists; if not, route to questions forum
-    if question is None:
-        questions()
-    # Get list of answers for question
-    question.answers = Answer.query.filter_by(
-        questionId=question.id).order_by(Answer.numVotes.desc()).all()
-    question.numAnswers = len(question.answers)
-    # Get the question's creator and assign it as an attribute
-    question.creator = User.query.get(question.userId)
-
-    # Process form
-    form = NewAnswerForm()
-    if form.validate_on_submit():
-        body = form.body.data
-        # Add answer to DB
-        a = Answer(body, current_user.id, question.id)
-        db.session.add(a)
-        db.session.commit()
-        return redirect(url_for('views.question', question_id=question_id))
-
-    # For each answer, add the creator as an attribute
-    for a in question.answers:
-        a.creator = User.query.get(a.userId)
-    return render_template('question.html', question=question, form=form)
+@views.route('/questions/', defaults={
+    'method': 'None',
+    'arg1': 'None',
+    'arg2': 'None'})
+@views.route('/questions/<method>/', defaults={
+    'arg1': 'None',
+    'arg2': 'None'})
+@views.route('/questions/<method>/<arg1>', defaults={
+    'arg2': 'None'},
+    methods=['GET', 'POST'])
+@views.route('/questions/<method>/<arg1>/<arg2>', methods=['GET', 'POST'])
+def question(method, arg1, arg2):
+    # Make best answer method
+    if(method == "acceptAnswer"):
+        result = QuestionCtrl.acceptAnswer(arg1, arg2)
+        if(result[0] == "REDIRECT"):
+            return redirect(url_for(
+                result[1],
+                method=result[2],
+                arg1=result[3]))
+        else:
+            return result
+    # Get Queston method
+    elif(method == "getQuestion"):
+        result = QuestionCtrl.getQuestion(arg1)
+        if(result[0] == "REDIRECT_1"):
+            return redirect(url_for(result[1]))
+        elif(result[0] == "REDIRECT_2"):
+            return redirect(url_for(
+                result[1],
+                method=result[2],
+                arg1=result[3]))
+        else:
+            return render_template(
+                result[1],
+                question=result[2],
+                form=result[3])
+    else:
+        return redirect(url_for("views.questions"))
 
 
 @views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
@@ -85,11 +104,8 @@ def vote(question_id, answer_id, value):
     return redirect(request.referrer)
 
 
-# Temporary method returns files in static/css/
-@views.route('/static/css/<filename>')
-def staticfile(filename):
-    return send_from_directory('app/static/css/', filename)
-# BUG: The function below does not return the files in static as expected.
-# @views.route("/static/<path:filename>")
-# def staticfile(filename):
-#     return send_from_directory(views.config["STATIC_FOLDER"], filename)
+# Temporary method returns files in static/*/
+@views.route('/static/<folder>/<filename>')
+def staticfile(folder, filename):
+    path = 'app/static/' + folder + '/' + filename
+    return send_file(path)

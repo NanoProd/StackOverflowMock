@@ -2,52 +2,15 @@
 
 {% block title %} Question {% endblock %}
 
-{% block script %}
-<script type="text/javascript">
-	$(document).ready(function () {
-
-		$('.upVote').on('click', function (event) {
-			question_id = $(this).data("qid");
-			answer_id = $(this).attr('data-id');
-			url = '/vote/' + question_id
-                + '/' + answer_id + '/1';
-			request = $.ajax({
-				url: url,
-				type: 'GET',
-			});
-
-			request.done(function (data) {
-				location.reload();
-			});
-		});
-
-	$('.downVote').on('click', function (event) {
-		question_id = $(this).data("qid");
-		answer_id = $(this).attr('data-id');
-		url = '/vote/' + question_id
-            + '/' + answer_id + '/0';
-	request = $.ajax({
-		url: url,
-		type: 'GET',
-	});
-
-	request.done(function (data) {
-		location.reload();
-	});
-    });
-});
-</script>
-{% endblock %}
-
 {% block content %}
 <div id="new-question-main-container" class="container">
 	<h1>{{ question.title }}</h1>
 	<div id="question-container" class="row">
 		<div class="col-1 question-votes-container">
 			<div class="h-100 text-center">
-				<span class="vote-btn">&#9650</span><br>
-				<span>{{ question.numVotes }}</span><br>
-				<span class="vote-btn">&#9660</span>
+				<span class="vote-btn no-select clickable">&#9650</span><br>
+				<span class="no-select">{{ question.numVotes }}</span><br>
+				<span class="vote-btn no-select clickable">&#9660</span>
 			</div>
 		</div>
 		<div class="col-11 question-container">
@@ -69,12 +32,17 @@
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
 				<div class="h-90 text-center">
-					<a id="upVote" class="upVote" data-id="{{answer.id}}" data-qid="{{question.id}}"><span class="vote-btn">&#9650<br></span></a>
-					<span>{{ answer.numVotes }}</span><br>
-					<a id="downVote" class="downVote" data-id="{{answer.id}}" data-qid="{{question.id}}" ><span class="vote-btn">&#9660</span></a>
+					<a id="upVote" class="upVote clickable deco-none no-select" q-id="{{ question.id }}" ans-id="{{answer.id}}"><span class="vote-btn">&#9650<br></span></a>
+					<span class="no-select">{{ answer.numVotes }}</span><br>
+					<a id="downVote" class="downVote clickable deco-none no-select" q-id="{{ question.id }}" ans-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
 				</div>
-				<div class="text-success h-10 text-center invisible" style="font-size: 2em; font-weight: bold;">
-					&#10003;
+				<div class="best-answer-selection-container mt-3 {{ 'd-none' if question.hasAcceptedAnswer or not question.user_is_owner }}">
+					<button class="best-answer-selection-btn btn-success" q-id="{{ question.id }}" ans-id="{{ answer.id }}" style="font-size: 0.6em; width: 100%;">Make Best Answer</button>
+				</div>
+				<div class="text-success h-10 text-center {{ 'invisible' if not answer.is_accepted_answer }}" style="font-size: 2em; font-weight: bold;">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+						<path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+					</svg>
 				</div>
 			</div>
 			<div class="col-11 answer-container">
