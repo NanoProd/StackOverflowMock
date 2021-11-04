@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask.helpers import send_from_directory
+from flask.helpers import flash, send_from_directory
 
 from flask_login import login_required, current_user
 from project import db
@@ -63,25 +63,36 @@ def question(question_id):
         a = Answer(body, current_user.id, question.id)
         db.session.add(a)
         db.session.commit()
-        return redirect(url_for('views.question', question_id=question_id))
+        return redirect(url_for('views.question', question_id=question_id, user=current_user))
 
     # For each answer, add the creator as an attribute
     for a in question.answers:
         a.creator = User.query.get(a.userId)
-    return render_template('question.html', question=question, form=form)
+    return render_template('question.html', question=question, form=form, user=current_user)
 
 
 @views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
 def vote(question_id, answer_id, value):
     answer_to_update = Answer.query.get(answer_id)
-    if int(value) == 1:
-        answer_to_update.numVotes += 1
-    else:
-        answer_to_update.numVotes -= 1
-    try:
+    num_votes_by_user = User.query.get(current_user.id).dailyVotes
+
+    if(num_votes_by_user >= 10):
+        flash('You have exceded 10 votes for the day. You will be allowed to vote again tomorrow at 6:30 am. Thank you',
+              category='danger')
+        return redirect(request.referrer)
+    elif(num_votes_by_user < 10):
+        # increase votes of user in db
+        voter = User.query.get(current_user.id)
+        voter.dailyVotes += 1
         db.session.commit()
-    except Exception:
-        return "There was a problem updating votes"
+        if int(value) == 1:
+            answer_to_update.numVotes += 1
+        else:
+            answer_to_update.numVotes -= 1
+        try:
+            db.session.commit()
+        except Exception:
+            return "There was a problem updating votes"
     return redirect(request.referrer)
 
 
