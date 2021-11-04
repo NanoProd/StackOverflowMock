@@ -96,7 +96,33 @@ def vote(question_id, answer_id, value):
     return redirect(request.referrer)
 
 
+@views.route('/questionVote/<question_id>/<value>', methods=['GET'])
+def questionVote(question_id, value):
+    question_to_update = Question.query.get(question_id)
+    num_votes_by_user = User.query.get(current_user.id).dailyVotes
+
+    if(num_votes_by_user >= 10):
+        flash('You have exceeded 10 votes for the day. You will be allowed to vote again tomorrow at 6:30 am. Thank you', category='error')
+        return redirect(request.referrer)
+    elif(num_votes_by_user < 10):
+        # increase votes of user in db
+        voter = User.query.get(current_user.id)
+        voter.dailyVotes += 1
+        db.session.commit()
+        if int(value) == 1:
+            question_to_update.numVotes += 1
+        else:
+            question_to_update -= 1
+        try:
+            db.session.commit()
+        except Exception:
+            return "There was a problem updating votes"
+    return redirect(request.referrer)
+
+
 # Temporary method returns files in static/css/
+
+
 @views.route('/static/css/<filename>')
 def staticfile(filename):
     return send_from_directory('app/static/css/', filename)

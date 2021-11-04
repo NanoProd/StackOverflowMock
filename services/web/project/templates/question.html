@@ -35,6 +35,33 @@
 		location.reload();
 	});
     });
+
+	$('.questionUpVote').on('click', function(event) {
+		question_id = $(this).data("id");
+
+		url = '/questionVote/' + question_id + '/1';
+		request = $.ajax({
+			url: url,
+			type: 'GET',
+		});
+		request.done(function (data){
+			location.reload();
+		})
+	});
+
+	$('.questionDownVote').on('click', function(event) {
+		question_id = $(this).data("id");
+
+		url = '/questionVote/' + question_id + '/0';
+		request = $.ajax({
+			url: url,
+			type: 'GET',
+		});
+		request.done(function (data){
+			location.reload();
+		})
+	});
+
 });
 </script>
 {% endblock %}
@@ -45,9 +72,9 @@
 	<div id="question-container" class="row">
 		<div class="col-1 question-votes-container">
 			<div class="h-100 text-center">
-				<span class="vote-btn">&#9650</span><br>
+				<a id="questionUpVote" class="questionUpVote" data-id="{{question.id}}"><span class="vote-btn">&#9650</span><br></a>
 				<span>{{ question.numVotes }}</span><br>
-				<span class="vote-btn">&#9660</span>
+				<a id="questionDownVote" class="questionDownVote" data-id="{{question.id}}"><span class="vote-btn">&#9660</span></a>
 			</div>
 		</div>
 		<div class="col-11 question-container">
