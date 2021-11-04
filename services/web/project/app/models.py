@@ -16,6 +16,7 @@ class User(models.BaseModel, UserMixin):
     email = db.Column(db.String(128), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
     active = db.Column(db.Boolean, default=True, nullable=False)
+    dailyVotes = db.Column(db.Integer, default=0, nullable=False)
 
     def __init__(self, username, email, password):
         self.email = email
