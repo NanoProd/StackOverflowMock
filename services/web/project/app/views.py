@@ -78,7 +78,7 @@ def vote(question_id, answer_id, value):
 
     if(num_votes_by_user >= 10):
         flash('You have exceded 10 votes for the day. You will be allowed to vote again tomorrow at 6:30 am. Thank you',
-              category='danger')
+              category='error')
         return redirect(request.referrer)
     elif(num_votes_by_user < 10):
         # increase votes of user in db
