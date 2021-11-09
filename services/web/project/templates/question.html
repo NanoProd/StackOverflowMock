@@ -2,6 +2,10 @@
 
 {% block title %} Question {% endblock %}
 
+{% block script %} 
+    <script type="text/javascript" src="{{ url_for('views.staticfile', folder='js', filename='question.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 <div id="new-question-main-container" class="container">
 	<h1>{{ question.title }}</h1>
