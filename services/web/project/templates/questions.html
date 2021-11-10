@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="col-10 question-container">
-				<a href="{{ url_for('views.question', method='getQuestion', arg1=question.id) }}">
+				<a href="{{ url_for('views.question', question_id=question.id) }}">
 					<h2 class="question-title">
 						{{ question.title }}
 					</h2>
