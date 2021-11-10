@@ -13,8 +13,8 @@ class QuestionCtrl():
 
         # Validate that question exists; if not, route to questions forum
         if question is None:
-            result.append('REDIRECT_1')
-            result.append('views.questions')
+            result.append('ERROR')
+            result.append('QUESTION_DOES_NOT_EXIST')
             return result
 
         # Get list of answers for question
@@ -52,9 +52,8 @@ class QuestionCtrl():
             db.session.add(a)
             db.session.commit()
 
-            result.append("REDIRECT_2")
-            result.append("views.question")
-            result.append("getQuestion")
+            result.append("SUCCESS")
+            result.append("NEW_ANSWER_CREATED")
             result.append(question_id)
             return result
 
@@ -62,8 +61,8 @@ class QuestionCtrl():
         for a in question.answers:
             a.creator = User.query.get(a.userId)
 
-        result.append("RENDER_TEMPLATE")
-        result.append('question.html')
+        result.append("SUCCESS")
+        result.append("QUESTION_FOUND")
         result.append(question)
         result.append(form)
         return result
@@ -81,7 +80,9 @@ class QuestionCtrl():
             if(answer is None):
                 # Return error message to user
                 # TODO: Log error to file instead.
-                return "ANSWER_NOT_FOUND_ERROR"
+                result.append("ERROR")
+                result.append("ANSWER_NOT_FOUND_ERROR")
+                return result
 
             # TODO: If user is not owner of question, log error.
 
@@ -90,7 +91,7 @@ class QuestionCtrl():
             db.session.commit()
             # Reload question so that accepted answer
             # appears at top of the list.
-            result.append("REDIRECT")
+            result.append("SUCCESS")
             result.append("views.question")
             result.append("getQuestion")
             result.append(question_id)
@@ -99,4 +100,6 @@ class QuestionCtrl():
         else:
             # Return error message to user
             # TODO: Log error to file instead.
-            return "ACCEPTED_ANSWER_EXISTS"
+            result.append("ERROR")
+            result.append("ACCEPTED_ANSWER_EXISTS")
+            return result
