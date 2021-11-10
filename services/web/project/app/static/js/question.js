@@ -33,7 +33,7 @@ $(document).ready(function () {
 	$('.best-answer-selection-btn').on('click', function(event) {
 		question_id = $(this).attr('q-id');
 		answer_id = $(this).attr('ans-id');
-		url = "/questions/acceptAnswer/" + answer_id + "/" + question_id;
+		url = "/questions/accept_answer/" + answer_id + "/" + question_id;
 		window.location.replace(url);
 	});
 });
