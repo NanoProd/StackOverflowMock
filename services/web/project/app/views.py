@@ -43,51 +43,63 @@ def new_question():
         db.session.commit()
         return redirect(url_for(
             "views.question",
-            method="getQuestion",
-            arg1=q.id))
+            question_id=q.id))
 
     return render_template("new_question.html", form=form)
 
 
-@views.route('/questions/', defaults={
-    'method': 'None',
-    'arg1': 'None',
-    'arg2': 'None'})
-@views.route('/questions/<method>/', defaults={
-    'arg1': 'None',
-    'arg2': 'None'})
-@views.route('/questions/<method>/<arg1>', defaults={
-    'arg2': 'None'},
-    methods=['GET', 'POST'])
-@views.route('/questions/<method>/<arg1>/<arg2>', methods=['GET', 'POST'])
-def question(method, arg1, arg2):
-    # Make best answer method
-    if(method == "acceptAnswer"):
-        result = QuestionCtrl.acceptAnswer(arg1, arg2)
-        if(result[0] == "REDIRECT"):
-            return redirect(url_for(
-                result[1],
-                method=result[2],
-                arg1=result[3]))
-        else:
-            return result
-    # Get Queston method
-    elif(method == "getQuestion"):
-        result = QuestionCtrl.getQuestion(arg1)
-        if(result[0] == "REDIRECT_1"):
-            return redirect(url_for(result[1]))
-        elif(result[0] == "REDIRECT_2"):
-            return redirect(url_for(
-                result[1],
-                method=result[2],
-                arg1=result[3]))
-        else:
+@views.route('/questions/<question_id>', methods=['GET', 'POST'])
+def question(question_id):
+    result = QuestionCtrl.getQuestion(question_id)
+    # The controller returns the results as a list:
+    # result[0] : Operation Status => value = "SUCCESS" | "ERROR"
+    # result[1] : Message => value "succes_or_eror_message"
+    # result[2] : Question object
+    #   associated wit result[0] = "SUCCESS" and result[1] = "QUESTION_FOUND"
+    # result[3] : Form object
+    #   associated wit result[0] = "SUCCESS" and result[1] = "QUESTION_FOUND"
+
+    # If operation was executed successfully
+    if(result[0] == "SUCCESS"):
+        message = result[1]
+        # GET request received to retrieve questio from DB
+        if(message == "QUESTION_FOUND"):
+            _question = result[2]
+            _form = result[3]
             return render_template(
-                result[1],
-                question=result[2],
-                form=result[3])
+                "question.html",
+                question=_question,
+                form=_form)
+        # else message = "NEW_ANSWER_CREATED"
+        # POST request received on new answer form submission
+        else:
+            _question_id = result[2]
+            return redirect(url_for(
+                "views.question",
+                question_id=_question_id))
+    # else result[0] = "ERROR"
     else:
+        # Redirect to questions forum
         return redirect(url_for("views.questions"))
+
+
+# Accept Answer
+@views.route('/questions/accept_answer/<answer_id>/<question_id>', methods=['GET'])
+def acceptAnswer(answer_id, question_id):
+    # The controller returns the following in the result list:
+    # - the status of the operation (result[0]) : "SUCCESSS" | "ERROR"
+    # - the error message following a status of "ERROR" (result[1])
+    result = QuestionCtrl.acceptAnswer(answer_id, question_id)
+    # if operation was performed successfully
+    if(result[0] == "SUCCESS"):
+        # Reload the question to load changes in accepted answer
+        return redirect(url_for(
+            "views.question",
+            question_id=question_id))
+    # else result[0] = "ERROR"
+    else:
+        error_message = result[1]
+        return error_message
 
 
 @views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
