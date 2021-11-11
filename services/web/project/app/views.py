@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask.helpers import flash, send_from_directory, send_file
+from flask.helpers import send_file
 
 from flask_login import login_required, current_user
 from project import db
@@ -84,18 +84,18 @@ def question(question_id):
 
 
 # Accept Answer
-@views.route('/questions/accept_answer/<answer_id>/<question_id>', methods=['GET'])
-def acceptAnswer(answer_id, question_id):
+@views.route('/questions/accept_answer/<a_id>/<q_id>', methods=['GET'])
+def acceptAnswer(a_id, q_id):
     # The controller returns the following in the result list:
     # - the status of the operation (result[0]) : "SUCCESSS" | "ERROR"
     # - the error message following a status of "ERROR" (result[1])
-    result = QuestionCtrl.acceptAnswer(answer_id, question_id)
+    result = QuestionCtrl.acceptAnswer(a_id, q_id)
     # if operation was performed successfully
     if(result[0] == "SUCCESS"):
         # Reload the question to load changes in accepted answer
         return redirect(url_for(
             "views.question",
-            question_id=question_id))
+            question_id=q_id))
     # else result[0] = "ERROR"
     else:
         error_message = result[1]
@@ -108,7 +108,8 @@ def vote(question_id, answer_id, value):
     # num_votes_by_user = User.query.get(current_user.id).dailyVotes
 
     # if(num_votes_by_user >= 10):
-    #     flash('You have exceded 10 votes for the day. You will be allowed to vote again tomorrow at 6:30 am. Thank you',
+    #     flash('You have exceded 10 votes for the day. You will be allowed to
+    # vote again tomorrow at 6:30 am. Thank you',
     #           category='error')
     #     return redirect(request.referrer)
     # elif(num_votes_by_user < 10):
@@ -135,7 +136,8 @@ def questionVote(question_id, value):
     # num_votes_by_user = User.query.get(current_user.id).dailyVotes
 
     # if(num_votes_by_user >= 10):
-    #     flash('You have exceeded 10 votes for the day. You will be allowed to vote again tomorrow at 6:30 am. Thank you',
+    #     flash('You have exceeded 10 votes for the day. You will be allowed to
+    # vote again tomorrow at 6:30 am. Thank you',
     #           category='error')
     #     return redirect(request.referrer)
     # elif(num_votes_by_user < 10):
