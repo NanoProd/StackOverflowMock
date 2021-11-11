@@ -12,9 +12,9 @@
 	<div id="question-container" class="row">
 		<div class="col-1 question-votes-container">
 			<div class="h-100 text-center">
-				<span class="vote-btn no-select clickable">&#9650</span><br>
-				<span class="no-select">{{ question.numVotes }}</span><br>
-				<span class="vote-btn no-select clickable">&#9660</span>
+				<a id="questionUpVote" class="questionUpVote no-select clickable deco-none" data-id="{{question.id}}"><span class="vote-btn">&#9650</span><br></a>
+				<span>{{ question.numVotes }}</span><br>
+				<a id="questionDownVote" class="questionDownVote no-select clickable deco-none" data-id="{{question.id}}"><span class="vote-btn">&#9660</span></a>
 			</div>
 		</div>
 		<div class="col-11 question-container">

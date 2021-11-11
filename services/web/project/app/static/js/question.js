@@ -29,6 +29,32 @@ $(document).ready(function () {
 		});
     });
 
+	$('.questionUpVote').on('click', function(event) {
+		question_id = $(this).data("id");
+
+		url = '/questionVote/' + question_id + '/1';
+		request = $.ajax({
+			url: url,
+			type: 'GET',
+		});
+		request.done(function (data){
+			location.reload();
+		})
+	});
+
+	$('.questionDownVote').on('click', function(event) {
+		question_id = $(this).data("id");
+
+		url = '/questionVote/' + question_id + '/0';
+		request = $.ajax({
+			url: url,
+			type: 'GET',
+		});
+		request.done(function (data){
+			location.reload();
+		})
+	});
+
    	// Attatch event listener to best answer selection buttons.
 	$('.best-answer-selection-btn').on('click', function(event) {
 		question_id = $(this).attr('q-id');
