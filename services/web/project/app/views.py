@@ -17,7 +17,7 @@ def home():
 @views.route('/questions')
 def questions():
     # Create a list of questions.
-    questions = Question.query.order_by(Question.date_created).all()
+    questions = Question.query.order_by(Question.numVotes.desc()).all()
     # For each question add the username of the creator, and the number of answers as attributes.
     for q in questions:
         q.creator = User.query.get(q.userId)
