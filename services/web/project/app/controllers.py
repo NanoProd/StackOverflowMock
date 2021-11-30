@@ -120,8 +120,6 @@ class UserCtrl():
         # get all questions posted by user
         questions = Question.query.filter_by(
             userId=user.id).order_by(Question.numVotes.desc()).all()
-        # get num of questions asked
-        questions.numQuestions = len(questions)
 
         # send back the result object with all information
         result.append("SUCCESS")

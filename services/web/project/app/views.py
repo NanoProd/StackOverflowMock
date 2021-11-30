@@ -6,14 +6,14 @@ from project import db
 from project.app.models import User, Question, Answer
 from project.app.forms import NewQuestionForm
 from project.app.controllers import QuestionCtrl
-from services.web.project.app.controllers import UserCtrl
+from project.app.controllers import UserCtrl
 
 views = Blueprint('views', __name__)
 
 
 @views.route('/')
 def home():
-    return questions()
+    return render_template('questions.html')
 
 
 @views.route('/questions')
@@ -159,7 +159,7 @@ def questionVote(question_id, value):
     return redirect(request.referrer)
 
 
-@views.route('/UserPage/<user_id>', methods=['GET', 'POST'])
+@views.route('/userPage/<user_id>', methods=['GET', 'POST'])
 def userPage(user_id):
     result = UserCtrl.getUser(user_id)
     # The controller returns the results as a list:
@@ -176,7 +176,7 @@ def userPage(user_id):
         if(message == "USER_FOUND"):
             _user = result[2]
             _questions = result[3]
-            return render_template("UserPage.html",
+            return render_template("userPage.html",
                                    user=_user, questions=_questions)
     else:
         # Redirect to home
