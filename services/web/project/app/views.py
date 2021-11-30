@@ -98,6 +98,16 @@ def acceptAnswer(a_id, q_id):
     # if operation was performed successfully
     if(result[0] == "SUCCESS"):
         # Reload the question to load changes in accepted answer
+
+        # increase reputation of user who posted the question
+        post_user_id = Question.query.get(q_id).userId
+        post_user = User.query.get(post_user_id)
+
+        if current_user.id != post_user.id:
+            post_user.reputation += 15
+            # increase reputation of user who accepted the answer
+            current_user.reputation += 2
+
         return redirect(url_for(
             "views.question",
             question_id=q_id))
@@ -119,11 +129,16 @@ def vote(question_id, answer_id, value):
     #     return redirect(request.referrer)
     # elif(num_votes_by_user < 10):
 
+    # get user who posted the question
+    post_user_id = Question.query.get(question_id).userId
+    post_user = User.query.get(post_user_id)
+
     # increase votes of user in db
     voter = User.query.get(current_user.id)
     voter.dailyVotes += 1
     db.session.commit()
     if int(value) == 1:
+        post_user.reputation += 10
         answer_to_update.numVotes += 1
     else:
         answer_to_update.numVotes -= 1
@@ -147,11 +162,16 @@ def questionVote(question_id, value):
     #     return redirect(request.referrer)
     # elif(num_votes_by_user < 10):
 
+    # get user who posted the question
+    post_user_id = Question.query.get(question_id).userId
+    post_user = User.query.get(post_user_id)
+
     # increase votes of user in db
     voter = User.query.get(current_user.id)
     voter.dailyVotes += 1
     db.session.commit()
     if int(value) == 1:
+        post_user.reputation += 10
         question_to_update.numVotes += 1
     else:
         question_to_update -= 1
