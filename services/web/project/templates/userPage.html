@@ -27,13 +27,14 @@
                     <div class="col-md-6"><label class="labels">Reputation: </label></div>
                     <div class="col-md-6"><label class="labels">{{user.reputation}}</label></div>
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" href="{{ url_for('views.userPage', user_id=current_user.id) }}">Edit Profile</button></div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" href="{{ url_for('views.userEdit', user_id=current_user.id) }}">Edit Profile</button></div>
             </div>
         </div>
         <div class="col-md-4">
-        </div>
+    </div>
     </div>
     <hr>
+    <div class="row mt-5">
     <h3 class="text-right">My Questions</h3>
     <div id="questions-list" class="row align-items-start">
 		{% for question in questions %}
