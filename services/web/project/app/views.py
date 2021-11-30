@@ -176,6 +176,10 @@ def userPage(user_id):
         if(message == "USER_FOUND"):
             _user = result[2]
             _questions = result[3]
+            for q in _questions:
+                q.creator = User.query.get(q.userId)
+                q.numAnswers = len(
+                    Answer.query.filter_by(questionId=q.id).all())
             return render_template("userPage.html",
                                    user=_user, questions=_questions)
     else:
