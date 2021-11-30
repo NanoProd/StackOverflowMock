@@ -13,7 +13,11 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    return render_template('questions.html')
+    questions = Question.query.order_by(Question.numVotes.desc()).all()
+    for q in questions:
+        q.creator = User.query.get(q.userId)
+        q.numAnswers = len(Answer.query.filter_by(questionId=q.id).all())
+    return render_template('questions.html', questions_list=questions)
 
 
 @views.route('/questions')
