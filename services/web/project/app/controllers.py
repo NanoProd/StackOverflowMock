@@ -55,7 +55,7 @@ class QuestionCtrl():
             db.session.add(a)
             db.session.commit()
 
-        return redirect(url_for("views.question", question_id))
+        return redirect(url_for("views.showQuestion", question_id))
 
     def acceptAnswer(answer_id, question_id):
         result = list()

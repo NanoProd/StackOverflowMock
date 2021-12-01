@@ -25,14 +25,13 @@ def questions():
         q.creator = User.query.get(q.userId)
         q.numAnswers = len(Answer.query.filter_by(questionId=q.id).all())
     return render_template(
-        "questions.html",
-        user=current_user,
-        questions_list=questions)
+        "questions.html", user=current_user, questions_list=questions
+    )
 
 
-@views.route('/question', methods=['GET', 'POST'])
 @login_required
-def new_question():
+@views.route('/question', methods=['GET', 'POST'])
+def newQuestion():
     form = NewQuestionForm()
     if form.validate_on_submit():
         title = form.title.data
@@ -41,18 +40,19 @@ def new_question():
         q = Question(title, body, current_user.id)
         db.session.add(q)
         db.session.commit()
-        return redirect(url_for(
-            "views.question",
-            question_id=q.id))
+        return redirect(url_for("views.question", question_id=q.id))
 
     return render_template("new_question.html", form=form)
 
 
 @views.route('/questions/<question_id>', methods=['GET'])
-def question(question_id):
+def showQuestion(question_id):
+    '''Show question by its id'''
     question = QuestionCtrl.getQuestion(question_id)
 
-    return render_template("question.html", question=question, form=NewAnswerForm())
+    return render_template(
+        "question.html", question=question, form=NewAnswerForm()
+    )
 
 
 @login_required
