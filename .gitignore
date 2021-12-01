@@ -61,3 +61,4 @@ services/web/.idea
 .idea
 .devcontainer
 services/web/project/test.db
+.vscode/settings.json
