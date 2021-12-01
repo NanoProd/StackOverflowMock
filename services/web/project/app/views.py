@@ -12,12 +12,13 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
+    '''Just a homepage'''
     return questions()
 
 
 @views.route('/questions')
 def questions():
-    # Create a list of questions.
+    '''List of all questions'''
     questions = Question.query.order_by(Question.numVotes.desc()).all()
     # For each question add the username of the creator,
     # and the number of answers as attributes.
@@ -32,6 +33,7 @@ def questions():
 @login_required
 @views.route('/question', methods=['GET', 'POST'])
 def newQuestion():
+    '''Show new question form and post it to database'''
     form = NewQuestionForm()
     if form.validate_on_submit():
         title = form.title.data
@@ -141,8 +143,8 @@ def questionVote(question_id, value):
     return redirect(request.referrer)
 
 
-# Temporary method returns files in static/*/
 @views.route('/static/<folder>/<filename>')
 def staticfile(folder, filename):
+    '''Technical route for retrieving static files in static/*/'''
     path = 'app/static/' + folder + '/' + filename
     return send_file(path)
