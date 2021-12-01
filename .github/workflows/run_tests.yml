@@ -52,4 +52,4 @@ jobs:
       working-directory: ./services/web
       run: |
         # run the discoverable tests
-        python -m unittest discover
+        python -m unittest discover -v
