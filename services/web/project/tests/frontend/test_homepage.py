@@ -19,7 +19,8 @@ class HomePageTest(BasicTest):
         # self.assertIn(b'2 Answers', response.data)
         self.assertIn(b'Asked by:', response.data)
         self.assertIn(
-            b'This is a test question. It is intended to be inserted into the DB as a seed.', response.data)
+            b'This is a test question. It is intended to be inserted into the \
+                DB as a seed.', response.data)
         self.assertIn(b'Test Question 2', response.data)
 
     def test_visitor_can_see_naviation_buttons(self):
@@ -31,10 +32,10 @@ class HomePageTest(BasicTest):
         self.assertIn(b'Questions', response.data,
                       'Questions button is present')
 
-    def test_visitor_can_see_ask_questions_button(self):
+    def test_visitor_cannot_see_ask_questions_button(self):
         '''A visitor can see ask question button'''
         response = self.app.get('/')
-        self.assertIn(b'Ask Question', response.data)
+        self.assertNotIn(b'Ask Question', response.data)
 
 
 if __name__ == "__main__":
