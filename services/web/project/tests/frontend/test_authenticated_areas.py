@@ -15,11 +15,6 @@ class AuthenticatedAreas(BasicTest):
         response = self.app.get('/logout', follow_redirects=False)
         self.assertIn('/login?next=%2Flogout', response.location)
 
-    def test_a_visitor_cannot_post_answers(self):
-        '''A visitor is redirected to auth page if tries to post an answer'''
-        response = self.app.post('/logout', follow_redirects=False)
-        self.assertIn('/login?next=%2Flogout', response.location)
-
 
 if __name__ == "__main__":
     unittest.main()
