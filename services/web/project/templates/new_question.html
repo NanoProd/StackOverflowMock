@@ -10,22 +10,22 @@
 		<div class="row">
 			{{ form.title.label(class="text-dark", style="font-size: 1.5em;") }}
 			<ul class="errors text-danger">
-			{% if form.title.errors %}
-		        {% for error in form.title.errors %}
-		        <li>{{ error }}</li>
-		        {% endfor %}
-			{% endif %}
+				{% if form.title.errors %}
+				{% for error in form.title.errors %}
+				<li>{{ error }}</li>
+				{% endfor %}
+				{% endif %}
 			</ul>
 			{{ form.title(class="form-control", placeholder="Title") }}
 		</div>
 		<div class="row mt-3">
 			{{ form.body.label(class="text-dark", style="font-size: 1.5em;") }}
 			<ul class="errors text-danger">
-			{% if form.body.errors %}
-		        {% for error in form.body.errors %}
-		        <li>{{ error }}</li>
-		        {% endfor %}
-			{% endif %}
+				{% if form.body.errors %}
+				{% for error in form.body.errors %}
+				<li>{{ error }}</li>
+				{% endfor %}
+				{% endif %}
 			</ul>
 			{{ form.body(class="form-control", placeholder="Type in your question") }}
 		</div>
