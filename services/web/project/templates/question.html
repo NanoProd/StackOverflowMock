@@ -66,6 +66,7 @@
 		</div>
 		{% endfor %}
 	</div>
+	{%if current_user.is_authenticated%}
 	<div id="new-answer-form-container">
 		<h2>Your Answer</h2>
 		<form method="POST" class="form-signin" style="color:white;">
@@ -84,5 +85,7 @@
 			{{ form.submit(class="btn btn-lg btn-block btn-secondary") }}
 		</form>
 	</div>
+	{% endif %}
+
 </div>
 {% endblock %}
