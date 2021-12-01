@@ -103,3 +103,27 @@ class QuestionCtrl():
             result.append("ERROR")
             result.append("ACCEPTED_ANSWER_EXISTS")
             return result
+
+
+class UserCtrl():
+    def getUser(user_id):
+        result = list()
+        # get user from DB
+        user = User.query.get(user_id)
+
+        # validate that user exists
+        if user is None:
+            result.append("ERROR")
+            result.append("USER_DOES_NOT_EXIST")
+            return result
+
+        # get all questions posted by user
+        questions = Question.query.filter_by(
+            userId=user.id).order_by(Question.numVotes.desc()).all()
+
+        # send back the result object with all information
+        result.append("SUCCESS")
+        result.append("USER_FOUND")
+        result.append(user)
+        result.append(questions)
+        return result

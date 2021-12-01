@@ -24,17 +24,20 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="padding-left: 5em;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="padding-left: 5em;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
+                <a class="navbar-brand">
+                    <img src="https://jtourvieille.github.io/MutationTesting/stackoverflow.png" width="32" height="32">
+                </a>
                 <a href="{{ url_for('auth.login') }}" class="navbar-item nav-link" id="login">Login</a>
                 <a href="{{ url_for('auth.signup') }}" class="navbar-item nav-link" id="signup">Sign-up</a>
+                <a href="{{ url_for('views.questions') }}" class="navbar-item nav-link" id="questions">Questions</a> 
+                <a href="{{ url_for('views.userPage', user_id=current_user.id) }}" class="navbar-item nav-link" id="userpage">User</a>
                 <a href="{{ url_for('auth.logout') }}" class="navbar-item nav-link" id="logout">Log out</a>
-                <!-- <a href="{{ url_for('views.home') }}" class="navbar-item nav-link" id="home">Home</a> -->
-                <a href="{{ url_for('views.questions') }}" class="navbar-item nav-link" id="questions">Questions</a>
             </div>
         </div>
     </nav>

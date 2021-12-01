@@ -1,5 +1,6 @@
 body {
 	padding-top: 5rem;
+  background-color: rgb(250, 250, 250);
 }
 
 .no-select {
@@ -29,3 +30,83 @@ div#questions-header {
 /* BEGIN: Question */
 
 /* END: Question; */
+
+.btn {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 600;
+  position: relative;
+
+  display: block;
+  margin: 30px auto;
+  padding: 10px;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(29, 28, 28, 0.6);
+  
+  background-color: #e29a13;
+  color: #f2f6f7;
+  
+  transition: background-color .3s;
+}
+
+.best-answer-selection-btn {
+  position: relative;
+
+  display: block;
+  margin: 25px auto;
+  padding: 10px;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  
+  background-color: #1ba31b;
+  color: #ecf0f1;
+  
+  transition: background-color .3s;
+}
+
+.question-title {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  position: relative;
+  
+  display: block;
+  margin: 25px auto;
+  padding: 10px;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  
+  background-color: rgba(245, 245, 245, 0.884);
+  color: rgb(240, 125, 59);
+}
+
+.question-title:hover {
+  background-color: rgba(233, 233, 233, 0.884);
+}
+
+.vote-btn {
+  color: #918d8d;
+}
+
+.vote-btn:hover {
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  
+  background-color: rgb(209, 205, 205);
+  color: #0f0f0f;
+}
+
+.col-10 {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+

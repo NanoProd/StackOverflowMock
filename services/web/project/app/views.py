@@ -6,13 +6,18 @@ from project import db
 from project.app.models import User, Question, Answer
 from project.app.forms import NewQuestionForm
 from project.app.controllers import QuestionCtrl
+from project.app.controllers import UserCtrl
 
 views = Blueprint('views', __name__)
 
 
 @views.route('/')
 def home():
-    return questions()
+    questions = Question.query.order_by(Question.numVotes.desc()).all()
+    for q in questions:
+        q.creator = User.query.get(q.userId)
+        q.numAnswers = len(Answer.query.filter_by(questionId=q.id).all())
+    return render_template('questions.html', questions_list=questions)
 
 
 @views.route('/questions')
@@ -158,8 +163,36 @@ def questionVote(question_id, value):
     return redirect(request.referrer)
 
 
-# Temporary method returns files in static/*/
+@views.route('/userPage/<user_id>', methods=['GET', 'POST'])
+def userPage(user_id):
+    result = UserCtrl.getUser(user_id)
+    # The controller returns the results as a list:
+    # result[0] : Operation Status => value = "SUCCESS" | "ERROR"
+    # result[1] : Message => value "succes_or_error_message"
+    # result[2] : User object
+    #   associated with result[0] = "SUCCESS" and result[1] = "USER_FOUND"
+    # result[3] : Questions object
+    #   associated wit result[0] = "SUCCESS" and result[1] = "USER_FOUND"
+
+    # if operation was a success
+    if(result[0] == "SUCCESS"):
+        message = result[1]
+        if(message == "USER_FOUND"):
+            _user = result[2]
+            _questions = result[3]
+            for q in _questions:
+                q.creator = User.query.get(q.userId)
+                q.numAnswers = len(
+                    Answer.query.filter_by(questionId=q.id).all())
+            return render_template("userPage.html",
+                                   user=_user, questions=_questions)
+    else:
+        # Redirect to home
+        return redirect(url_for("home.html"))
+
+
 @views.route('/static/<folder>/<filename>')
 def staticfile(folder, filename):
+    # Temporary method returns files in static/*/
     path = 'app/static/' + folder + '/' + filename
     return send_file(path)
