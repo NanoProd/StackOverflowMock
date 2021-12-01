@@ -74,9 +74,7 @@ def acceptAnswer(a_id, q_id):
     # if operation was performed successfully
     if(result[0] == "SUCCESS"):
         # Reload the question to load changes in accepted answer
-        return redirect(url_for(
-            "views.question",
-            question_id=q_id))
+        return redirect(url_for("views.question", question_id=q_id))
     # else result[0] = "ERROR"
     else:
         error_message = result[1]
