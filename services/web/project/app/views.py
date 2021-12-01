@@ -30,8 +30,8 @@ def questions():
     )
 
 
-@login_required
 @views.route('/question', methods=['GET', 'POST'])
+@login_required
 def newQuestion():
     '''Show new question form and post it to database'''
     form = NewQuestionForm()
@@ -57,16 +57,16 @@ def showQuestion(question_id):
     )
 
 
-@login_required
 @views.route('/questions/<question_id>', methods=['POST'])
+@login_required
 def newAnswer(question_id):
     '''Post request for a new answer'''
     QuestionCtrl.newAnswer(question_id)
     return redirect(url_for("views.question", question_id))
 
 
-@login_required
 @views.route('/questions/accept_answer/<a_id>/<q_id>', methods=['GET'])
+@login_required
 def acceptAnswer(a_id, q_id):
     '''Accept Answer'''
     # The controller returns the following in the result list:
@@ -83,8 +83,8 @@ def acceptAnswer(a_id, q_id):
         return error_message
 
 
-@login_required
 @views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
+@login_required
 def vote(question_id, answer_id, value):
     '''Up/downvote an asnwer'''
     answer_to_update = Answer.query.get(answer_id)
@@ -113,8 +113,8 @@ def vote(question_id, answer_id, value):
     return redirect(request.referrer)
 
 
-@login_required
 @views.route('/questionVote/<question_id>/<value>', methods=['GET'])
+@login_required
 def questionVote(question_id, value):
     '''Up/downvote a question'''
     question_to_update = Question.query.get(question_id)
