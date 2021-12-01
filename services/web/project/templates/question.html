@@ -30,9 +30,11 @@
 			</div>
 		</div>
 	</div>
+	<hr>
 	<div id="answers-container" class="container">
-		<h2>{{ question.numAnswers }} Answers</h2>
+		<h3>{{ question.numAnswers }} Answers</h2>
 		{% for answer in question.answers %}
+		<div class="row mt-4">
 		<div class="row answer-row">
 			<div class="col-1 question-votes-container">
 				<div class="h-90 text-center">
@@ -41,7 +43,7 @@
 					<a id="downVote" class="downVote clickable deco-none no-select" q-id="{{ question.id }}" ans-id="{{answer.id}}"><span class="vote-btn">&#9660</span></a>
 				</div>
 				<div class="best-answer-selection-container mt-3 {{ 'd-none' if question.hasAcceptedAnswer or not question.user_is_owner }}">
-					<button class="best-answer-selection-btn btn-success" q-id="{{ question.id }}" ans-id="{{ answer.id }}" style="font-size: 0.6em; width: 100%;">Make Best Answer</button>
+					<button class="best-answer-selection-btn btn-success" q-id="{{ question.id }}" ans-id="{{ answer.id }}" style="font-size: 0.9em; width: 300%;">Make Top Answer</button>
 				</div>
 				<div class="text-success h-10 text-center {{ 'invisible' if not answer.is_accepted_answer }}" style="font-size: 2em; font-weight: bold;">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
@@ -80,7 +82,7 @@
 				{{ form.body(class="form-control", placeholder="Type in your answer") }}
 			</div>
 			<br>
-			{{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+			{{ form.submit(class="btn btn-lg btn-block btn-secondary") }}
 		</form>
 	</div>
 	{% endif %}
