@@ -10,6 +10,7 @@ from project.app.models import Answer, Question, User
 
 
 class BasicTest(unittest.TestCase):
+    '''Base test class'''
     _test_db_path = os.path.join(app.config['BASEDIR'], 'test.db')
 
     # setup and teardown
@@ -34,21 +35,36 @@ class BasicTest(unittest.TestCase):
         os.unlink(self._test_db_path)
 
     def seedTestData(self):
+        '''Seed test data for easier testing'''
         with app.app_context():
-            db.session.add(
-                User(username="test", email="johnas@concordia.ca", password="test"))
-            db.session.add(Question(title="Test Question 1",
-                                    body="This is a test question. It is intended to be inserted into the DB as a seed.", userId=1))
+            db.session.add(User(
+                username="test", email="johnas@concordia.ca", password="test")
+            )
+            db.session.add(Question(
+                title="Test Question 1",
+                body="This is a test question. It is intended to be inserted \
+                into the DB as a seed.", userId=1)
+            )
             db.session.add(Answer(
-                body="#1 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=1))
+                body="#1 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=1)
+            )
             db.session.add(Answer(
-                body="#2 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=1))
-            db.session.add(Question(title="Test Question 2",
-                                    body="This is a test question. It is intended to be inserted into the DB as a seed.", userId=1))
+                body="#2 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=1)
+            )
+            db.session.add(Question(
+                title="Test Question 2", body="This is a test question. It is \
+                    intended to be inserted into the DB as a seed.", userId=1)
+            )
             db.session.add(Answer(
-                body="#1 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=2))
+                body="#1 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=2)
+            )
             db.session.add(Answer(
-                body="#2 This is a test answer. It is intended to be inserted into the DB as a seed.", userId=1, questionId=2))
+                body="#2 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=2)
+            )
             db.session.commit()
 
 
