@@ -4,7 +4,7 @@ from flask.helpers import send_file
 from flask_login import login_required, current_user
 from project import db
 from project.app.models import User, Question, Answer
-from project.app.forms import NewQuestionForm
+from project.app.forms import NewAnswerForm, NewQuestionForm
 from project.app.controllers import QuestionCtrl
 
 views = Blueprint('views', __name__)
@@ -48,44 +48,25 @@ def new_question():
     return render_template("new_question.html", form=form)
 
 
-@views.route('/questions/<question_id>', methods=['GET', 'POST'])
+@views.route('/questions/<question_id>', methods=['GET'])
 def question(question_id):
-    result = QuestionCtrl.getQuestion(question_id)
-    # The controller returns the results as a list:
-    # result[0] : Operation Status => value = "SUCCESS" | "ERROR"
-    # result[1] : Message => value "succes_or_eror_message"
-    # result[2] : Question object
-    #   associated wit result[0] = "SUCCESS" and result[1] = "QUESTION_FOUND"
-    # result[3] : Form object
-    #   associated wit result[0] = "SUCCESS" and result[1] = "QUESTION_FOUND"
+    question = QuestionCtrl.getQuestion(question_id)
 
-    # If operation was executed successfully
-    if(result[0] == "SUCCESS"):
-        message = result[1]
-        # GET request received to retrieve questio from DB
-        if(message == "QUESTION_FOUND"):
-            _question = result[2]
-            _form = result[3]
-            return render_template(
-                "question.html",
-                question=_question,
-                form=_form)
-        # else message = "NEW_ANSWER_CREATED"
-        # POST request received on new answer form submission
-        else:
-            _question_id = result[2]
-            return redirect(url_for(
-                "views.question",
-                question_id=_question_id))
-    # else result[0] = "ERROR"
-    else:
-        # Redirect to questions forum
-        return redirect(url_for("views.questions"))
+    return render_template("question.html", question=question, form=NewAnswerForm())
 
 
-# Accept Answer
+@login_required
+@views.route('/questions/<question_id>', methods=['POST'])
+def newAnswer(question_id):
+    '''Post request for a new answer'''
+    QuestionCtrl.newAnswer(question_id)
+    return redirect(url_for("views.question", question_id))
+
+
+@login_required
 @views.route('/questions/accept_answer/<a_id>/<q_id>', methods=['GET'])
 def acceptAnswer(a_id, q_id):
+    '''Accept Answer'''
     # The controller returns the following in the result list:
     # - the status of the operation (result[0]) : "SUCCESSS" | "ERROR"
     # - the error message following a status of "ERROR" (result[1])
@@ -102,8 +83,10 @@ def acceptAnswer(a_id, q_id):
         return error_message
 
 
+@login_required
 @views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
 def vote(question_id, answer_id, value):
+    '''Up/downvote an asnwer'''
     answer_to_update = Answer.query.get(answer_id)
     # num_votes_by_user = User.query.get(current_user.id).dailyVotes
 
@@ -130,8 +113,10 @@ def vote(question_id, answer_id, value):
     return redirect(request.referrer)
 
 
+@login_required
 @views.route('/questionVote/<question_id>/<value>', methods=['GET'])
 def questionVote(question_id, value):
+    '''Up/downvote a question'''
     question_to_update = Question.query.get(question_id)
     # num_votes_by_user = User.query.get(current_user.id).dailyVotes
 
