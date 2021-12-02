@@ -4,43 +4,68 @@ import os
 import unittest
 
 
-from project import create_app, db
+from project.main import app
+from project.extensions import db
+from project.app.models import Answer, Question, User
 
 
-TEST_DB = 'test.db'
-
-
-app = create_app()
-
-
-class BasicTests(unittest.TestCase):
+class BasicTest(unittest.TestCase):
+    '''Base test class'''
+    _test_db_path = os.path.join(app.config['BASEDIR'], 'test.db')
 
     # setup and teardown
 
     # executed prior to each test
     def setUp(self):
         app.config['TESTING'] = True
+        app.config['SECRET_KEY'] = 'Just some giberish for testing purposes'
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(app.config['BASEDIR'], TEST_DB)
-        self.app = app.test_client()
+            self._test_db_path
 
         with app.app_context():
             db.drop_all()
             db.create_all()
 
-        self.assertEqual(app.debug, False)
+        self.app = app.test_client()
 
     # executed after each test
     def tearDown(self):
-        pass
+        os.unlink(self._test_db_path)
 
-    # tests
-
-    def test_main_page(self):
-        response = self.app.get('/', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
+    def seedTestData(self):
+        '''Seed test data for easier testing'''
+        with app.app_context():
+            db.session.add(User(
+                username="test", email="johnas@concordia.ca", password="test")
+            )
+            db.session.add(Question(
+                title="Test Question 1",
+                body="This is a test question. It is intended to be inserted \
+                into the DB as a seed.", userId=1)
+            )
+            db.session.add(Answer(
+                body="#1 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=1)
+            )
+            db.session.add(Answer(
+                body="#2 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=1)
+            )
+            db.session.add(Question(
+                title="Test Question 2", body="This is a test question. It is \
+                    intended to be inserted into the DB as a seed.", userId=1)
+            )
+            db.session.add(Answer(
+                body="#1 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=2)
+            )
+            db.session.add(Answer(
+                body="#2 This is a test answer. It is intended to be inserted \
+                into the DB as a seed.", userId=1, questionId=2)
+            )
+            db.session.commit()
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@
 		</div>
 		<div id="questions-header-ask-question-btn-container" class="col-2">
 			{% if current_user.is_authenticated%}
-			<a href="{{ url_for('views.new_question') }}">
+			<a href="{{ url_for('views.newQuestion') }}">
 				<button id="questions-header-ask-question-btn" type="button" class="btn btn-secondary">
 					Ask Question
 				</button>
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="col-10 question-container">
-				<a href="{{ url_for('views.question', question_id=question.id) }}">
+				<a href="{{ url_for('views.showQuestion', question_id=question.id) }}">
 					<h2 class="question-title">
 						{{ question.title }}
 					</h2>

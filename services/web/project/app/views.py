@@ -4,7 +4,7 @@ from flask.helpers import send_file
 from flask_login import login_required, current_user
 from project import db
 from project.app.models import User, Question, Answer
-from project.app.forms import NewQuestionForm
+from project.app.forms import NewAnswerForm, NewQuestionForm
 from project.app.controllers import QuestionCtrl
 from project.app.controllers import UserCtrl
 
@@ -13,6 +13,7 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
+    '''Just a homepage'''
     questions = Question.query.order_by(Question.numVotes.desc()).all()
     for q in questions:
         q.creator = User.query.get(q.userId)
@@ -22,7 +23,7 @@ def home():
 
 @views.route('/questions')
 def questions():
-    # Create a list of questions.
+    '''List of all questions'''
     questions = Question.query.order_by(Question.numVotes.desc()).all()
     # For each question add the username of the creator,
     # and the number of answers as attributes.
@@ -30,14 +31,14 @@ def questions():
         q.creator = User.query.get(q.userId)
         q.numAnswers = len(Answer.query.filter_by(questionId=q.id).all())
     return render_template(
-        "questions.html",
-        user=current_user,
-        questions_list=questions)
+        "questions.html", user=current_user, questions_list=questions
+    )
 
 
 @views.route('/question', methods=['GET', 'POST'])
 @login_required
-def new_question():
+def newQuestion():
+    '''Show new question form and post it to database'''
     form = NewQuestionForm()
     if form.validate_on_submit():
         title = form.title.data
@@ -46,51 +47,33 @@ def new_question():
         q = Question(title, body, current_user.id)
         db.session.add(q)
         db.session.commit()
-        return redirect(url_for(
-            "views.question",
-            question_id=q.id))
+        return redirect(url_for("views.showQuestion", question_id=q.id))
 
     return render_template("new_question.html", form=form)
 
 
-@views.route('/questions/<question_id>', methods=['GET', 'POST'])
-def question(question_id):
-    result = QuestionCtrl.getQuestion(question_id)
-    # The controller returns the results as a list:
-    # result[0] : Operation Status => value = "SUCCESS" | "ERROR"
-    # result[1] : Message => value "succes_or_eror_message"
-    # result[2] : Question object
-    #   associated wit result[0] = "SUCCESS" and result[1] = "QUESTION_FOUND"
-    # result[3] : Form object
-    #   associated wit result[0] = "SUCCESS" and result[1] = "QUESTION_FOUND"
+@views.route('/questions/<question_id>', methods=['GET'])
+def showQuestion(question_id):
+    '''Show question by its id'''
+    question = QuestionCtrl.getQuestion(question_id)
 
-    # If operation was executed successfully
-    if(result[0] == "SUCCESS"):
-        message = result[1]
-        # GET request received to retrieve questio from DB
-        if(message == "QUESTION_FOUND"):
-            _question = result[2]
-            _form = result[3]
-            return render_template(
-                "question.html",
-                question=_question,
-                form=_form)
-        # else message = "NEW_ANSWER_CREATED"
-        # POST request received on new answer form submission
-        else:
-            _question_id = result[2]
-            return redirect(url_for(
-                "views.question",
-                question_id=_question_id))
-    # else result[0] = "ERROR"
-    else:
-        # Redirect to questions forum
-        return redirect(url_for("views.questions"))
+    return render_template(
+        "question.html", question=question, form=NewAnswerForm()
+    )
 
 
-# Accept Answer
+@views.route('/questions/<question_id>', methods=['POST'])
+@login_required
+def newAnswer(question_id):
+    '''Post request for a new answer'''
+    QuestionCtrl.newAnswer(question_id)
+    return redirect(url_for("views.showQuestion",  question_id=question_id))
+
+
 @views.route('/questions/accept_answer/<a_id>/<q_id>', methods=['GET'])
+@login_required
 def acceptAnswer(a_id, q_id):
+    '''Accept Answer'''
     # The controller returns the following in the result list:
     # - the status of the operation (result[0]) : "SUCCESSS" | "ERROR"
     # - the error message following a status of "ERROR" (result[1])
@@ -108,9 +91,7 @@ def acceptAnswer(a_id, q_id):
             # increase reputation of user who accepted the answer
             current_user.reputation += 2
 
-        return redirect(url_for(
-            "views.question",
-            question_id=q_id))
+        return redirect(url_for("views.showQuestion", question_id=q_id))
     # else result[0] = "ERROR"
     else:
         error_message = result[1]
@@ -118,7 +99,9 @@ def acceptAnswer(a_id, q_id):
 
 
 @views.route('/vote/<question_id>/<answer_id>/<value>', methods=['GET'])
+@login_required
 def vote(question_id, answer_id, value):
+    '''Up/downvote an asnwer'''
     answer_to_update = Answer.query.get(answer_id)
     # num_votes_by_user = User.query.get(current_user.id).dailyVotes
 
@@ -151,7 +134,9 @@ def vote(question_id, answer_id, value):
 
 
 @views.route('/questionVote/<question_id>/<value>', methods=['GET'])
+@login_required
 def questionVote(question_id, value):
+    '''Up/downvote a question'''
     question_to_update = Question.query.get(question_id)
     # num_votes_by_user = User.query.get(current_user.id).dailyVotes
 
@@ -184,6 +169,7 @@ def questionVote(question_id, value):
 
 
 @views.route('/userPage/<user_id>', methods=['GET', 'POST'])
+@login_required
 def userPage(user_id):
     result = UserCtrl.getUser(user_id)
     # The controller returns the results as a list:
@@ -208,11 +194,27 @@ def userPage(user_id):
                                    user=_user, questions=_questions)
     else:
         # Redirect to home
-        return redirect(url_for("home.html"))
+        return redirect(url_for("base.html"))
+
+# @views.route('/userPage/<user_id>/edit', methods=['GET'])
+# @login_required
+# def editProfile(user_id):
+#     '''Post request for a new answer'''
+#     # test if the auth user id is the same as edit profile id
+#     form = UserCtrl.populateEditForm(user_id)
+#     return redirect(url_for("views.question", question_id))
+
+# @views.route('/userPage/<user_id>/edit', methods=['POST'])
+# @login_required
+# def editProfile(user_id):
+#     '''Post request for a new answer'''
+#     # test if the auth user id is the same as edit profile id
+#     form = UserCtrl.populateEditForm(user_id)
+#     return redirect(url_for("views.question", question_id))
 
 
 @views.route('/static/<folder>/<filename>')
 def staticfile(folder, filename):
-    # Temporary method returns files in static/*/
+    '''Technical route for retrieving static files in static/*/'''
     path = 'app/static/' + folder + '/' + filename
     return send_file(path)

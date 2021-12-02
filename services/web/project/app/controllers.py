@@ -1,4 +1,6 @@
+from flask.helpers import url_for
 from flask_login import current_user
+from werkzeug.utils import redirect
 from project import db
 from project.app.models import User, Question, Answer
 from project.app.forms import NewAnswerForm
@@ -7,15 +9,9 @@ from project.app.forms import NewAnswerForm
 class QuestionCtrl():
 
     def getQuestion(question_id):
-        result = list()
-        # Get question from DB
-        question = Question.query.get(question_id)
-
-        # Validate that question exists; if not, route to questions forum
-        if question is None:
-            result.append('ERROR')
-            result.append('QUESTION_DOES_NOT_EXIST')
-            return result
+        # Validate that question exists; if not, route to questions form
+        if (question := Question.query.get(question_id)) is None:
+            return redirect(url_for("views.questions"))
 
         # Get list of answers for question
         question.answers = Answer.query.filter_by(
@@ -43,29 +39,23 @@ class QuestionCtrl():
             if(current_user.id == question.userId):
                 question.user_is_owner = True
 
-        # Process form
-        form = NewAnswerForm()
-        if form.validate_on_submit():
-            body = form.body.data
-            # Add answer to DB
-            a = Answer(body, current_user.id, question.id)
-            db.session.add(a)
-            db.session.commit()
-
-            result.append("SUCCESS")
-            result.append("NEW_ANSWER_CREATED")
-            result.append(question_id)
-            return result
-
         # For each answer, add the creator as an attribute
         for a in question.answers:
             a.creator = User.query.get(a.userId)
 
-        result.append("SUCCESS")
-        result.append("QUESTION_FOUND")
-        result.append(question)
-        result.append(form)
-        return result
+        return question
+
+    def newAnswer(question_id):
+        '''Process form and add new reply to a question'''
+        form = NewAnswerForm()
+        if form.validate_on_submit():
+            body = form.body.data
+            # Add answer to DB
+            a = Answer(body, current_user.id, question_id)
+            db.session.add(a)
+            db.session.commit()
+
+        return redirect(url_for("views.showQuestion", question_id=question_id))
 
     def acceptAnswer(answer_id, question_id):
         result = list()
@@ -92,7 +82,7 @@ class QuestionCtrl():
             # Reload question so that accepted answer
             # appears at top of the list.
             result.append("SUCCESS")
-            result.append("views.question")
+            result.append("views.showQuestion")
             result.append("getQuestion")
             result.append(question_id)
             return result
