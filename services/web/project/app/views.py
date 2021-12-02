@@ -159,7 +159,7 @@ def questionVote(question_id, value):
         post_user.reputation += 10
         question_to_update.numVotes += 1
     else:
-        question_to_update -= 1
+        question_to_update.numVotes -= 1
     try:
         db.session.commit()
     except Exception:
