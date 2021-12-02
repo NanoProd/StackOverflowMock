@@ -70,7 +70,6 @@
 <script>
 
     var stats = document.getElementsByClassName('qid-stats')
-    console.log(stats)
     setInterval( function() {
         for(let i = 0; i < stats.length; i++) {
             let questionId = parseInt(stats[i].classList[1].replace(/[^\d.]/g, ''))
