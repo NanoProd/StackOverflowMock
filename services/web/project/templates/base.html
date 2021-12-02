@@ -30,18 +30,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
-                {% if current_user.is_authenticated%}
                 <a class="navbar-brand">
                     <img src="https://jtourvieille.github.io/MutationTesting/stackoverflow.png" width="32" height="32">
                 </a>
+                <a href="{{ url_for('views.questions') }}" class="navbar-item nav-link" id="questions">Questions</a> 
+                {% if current_user.is_authenticated%}
                 <a href="{{ url_for('views.userPage', user_id=current_user.id) }}" class="navbar-item nav-link" id="userpage">User</a>
+                <a href="{{ url_for('auth.logout') }}" class="navbar-item nav-link" id="logout">Log out</a>
                 {% else %}
                 <a href="{{ url_for('auth.login') }}" class="navbar-item nav-link" id="login">Login</a>
                 <a href="{{ url_for('auth.signup') }}" class="navbar-item nav-link" id="signup">Sign-up</a>
                 {% endif %}
                 
-                <a href="{{ url_for('views.questions') }}" class="navbar-item nav-link" id="questions">Questions</a> 
-                <a href="{{ url_for('auth.logout') }}" class="navbar-item nav-link" id="logout">Log out</a>
             </div>
         </div>
     </nav>
