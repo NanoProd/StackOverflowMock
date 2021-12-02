@@ -23,7 +23,7 @@
 		{% for question in questions_list %}
 		<div class="row">
 			<div class="col-2 question-stats-container">
-				<div style="align-items: center; display: flex;" class="h-100 align-middle">
+				<div class="qid-stats qid-{{ question.id }} style="align-items: center; display: flex;" class="h-100 align-middle">
 					{{ question.numVotes }} Votes<br>
 					{{ question.numAnswers }} Answers
 				</div>
@@ -50,3 +50,20 @@
 	</div>
 </div>
 {% endblock %}
+
+{%block script%}
+<script>
+
+    var stats = document.getElementsByClassName('qid-stats')
+    setInterval( function() {
+        for(let i = 0; i < stats.length; i++) {
+            let questionId = parseInt(stats[i].classList[1].replace(/[^\d.]/g, ''))
+            $.getJSON('/api/fetch-updates/' + questionId, function(resp, status) {
+                stats[i].innerHTML = `${ resp.votes } Votes<br>
+					${ resp.answers } Answers`
+            })
+        }
+    }, 2000)
+
+</script>
+{%endblock%}
