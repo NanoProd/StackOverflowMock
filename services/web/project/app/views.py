@@ -213,7 +213,6 @@ def userPage(user_id):
 #     return redirect(url_for("views.question", question_id))
 
 
-
 @views.route('/static/<folder>/<filename>')
 def staticfile(folder, filename):
     '''Technical route for retrieving static files in static/*/'''
