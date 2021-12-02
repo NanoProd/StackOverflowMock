@@ -169,6 +169,7 @@ def questionVote(question_id, value):
 
 
 @views.route('/userPage/<user_id>', methods=['GET', 'POST'])
+@login_required
 def userPage(user_id):
     result = UserCtrl.getUser(user_id)
     # The controller returns the results as a list:
