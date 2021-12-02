@@ -55,7 +55,7 @@ class QuestionCtrl():
             db.session.add(a)
             db.session.commit()
 
-        return redirect(url_for("views.showQuestion", question_id))
+        return redirect(url_for("views.showQuestion", question_id=question_id))
 
     def acceptAnswer(answer_id, question_id):
         result = list()
@@ -82,7 +82,7 @@ class QuestionCtrl():
             # Reload question so that accepted answer
             # appears at top of the list.
             result.append("SUCCESS")
-            result.append("views.question")
+            result.append("views.showQuestion")
             result.append("getQuestion")
             result.append(question_id)
             return result

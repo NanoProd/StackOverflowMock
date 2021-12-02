@@ -47,7 +47,7 @@ def newQuestion():
         q = Question(title, body, current_user.id)
         db.session.add(q)
         db.session.commit()
-        return redirect(url_for("views.question", question_id=q.id))
+        return redirect(url_for("views.showQuestion", question_id=q.id))
 
     return render_template("new_question.html", form=form)
 
@@ -67,7 +67,7 @@ def showQuestion(question_id):
 def newAnswer(question_id):
     '''Post request for a new answer'''
     QuestionCtrl.newAnswer(question_id)
-    return redirect(url_for("views.question", question_id))
+    return redirect(url_for("views.showQuestion",  question_id=question_id))
 
 
 @views.route('/questions/accept_answer/<a_id>/<q_id>', methods=['GET'])
@@ -91,7 +91,7 @@ def acceptAnswer(a_id, q_id):
             # increase reputation of user who accepted the answer
             current_user.reputation += 2
 
-        return redirect(url_for("views.question", question_id=q_id))
+        return redirect(url_for("views.showQuestion", question_id=q_id))
     # else result[0] = "ERROR"
     else:
         error_message = result[1]
