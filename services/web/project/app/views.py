@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, jsonify
 from flask.helpers import send_file
 
 from flask_login import login_required, current_user
@@ -194,6 +194,23 @@ def userPage(user_id):
     else:
         # Redirect to home
         return redirect(url_for("home.html"))
+
+
+@views.route('/api/fetch-updates/<question_id>', methods=['GET'])
+def fetchUpdates(question_id):
+    '''Fetch updates about votes and replies for questions'''
+    question = Question.query.get(question_id)
+    # For each question add the username of the creator,
+    # and the number of answers as attributes.
+    question.numAnswers = len(
+        Answer.query.filter_by(questionId=question.id).all()
+    )
+    return jsonify(
+        {
+            'votes': question.numVotes,
+            'answers': question.numAnswers
+        }
+    )
 
 
 @views.route('/static/<folder>/<filename>')
