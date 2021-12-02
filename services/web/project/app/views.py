@@ -194,7 +194,24 @@ def userPage(user_id):
                                    user=_user, questions=_questions)
     else:
         # Redirect to home
-        return redirect(url_for("home.html"))
+        return redirect(url_for("base.html"))
+
+# @views.route('/userPage/<user_id>/edit', methods=['GET'])
+# @login_required
+# def editProfile(user_id):
+#     '''Post request for a new answer'''
+#     # test if the auth user id is the same as edit profile id
+#     form = UserCtrl.populateEditForm(user_id)
+#     return redirect(url_for("views.question", question_id))
+
+# @views.route('/userPage/<user_id>/edit', methods=['POST'])
+# @login_required
+# def editProfile(user_id):
+#     '''Post request for a new answer'''
+#     # test if the auth user id is the same as edit profile id
+#     form = UserCtrl.populateEditForm(user_id)
+#     return redirect(url_for("views.question", question_id))
+
 
 
 @views.route('/static/<folder>/<filename>')
